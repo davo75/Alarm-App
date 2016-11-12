@@ -1,0 +1,525 @@
+﻿using System;
+using Android.App;
+using Android.Content;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using Android.OS;
+using System.Collections.Generic;
+using Java.Util;
+using Newtonsoft.Json;
+using Android.Content.PM;
+using System.Net.NetworkInformation;
+using CustomListView.au.edu.wa.central.mydesign.student;
+using System.Data;
+
+namespace CustomListView
+{
+    [Activity(Label = "CustomListView", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
+    public class MainActivity : Activity
+    {
+       
+        List<Alarm> alarms;
+        ListView listView;
+        PeopleScreenAdapter psa;
+
+        AlarmManager mgr;
+
+        
+
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            this.RequestWindowFeature(WindowFeatures.NoTitle);
+           // this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            // Set our view from the "main" layout resource
+            SetContentView(Resource.Layout.Main);
+
+            listView = FindViewById<ListView>(Resource.Id.List);
+
+            //create 3 sample alarms
+            loadAlarms();
+            
+
+            //button for adding a new alarm
+            Button btnAdd = FindViewById<Button>(Resource.Id.button2);
+            btnAdd.Click += BtnAdd_Click;
+
+
+            
+            
+            
+
+            Toast.MakeText(this, "OnCreate", ToastLength.Short).Show();
+        }
+
+        private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var alarm = listView.GetItemAtPosition(e.Position).Cast<Alarm>();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            AlertDialog alert = builder.Create();
+            builder.SetTitle("Confirm delete");
+            builder.SetMessage("Are you sure you want to delete the alarm?");
+            builder.SetPositiveButton("Delete", (senderAlert, args) => {
+                deleteAlarm(alarm.AlarmID);
+                
+            });
+
+            builder.SetNegativeButton("Cancel", (senderAlert, args) => {
+                alert.Dismiss();
+            });
+
+            Dialog dialog = builder.Create();
+            dialog.Show(); ;
+        }
+
+        private void deleteAlarm(int alarmID)
+        {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Service1 client = new Service1();
+                client.DeleteAlarmAsync(alarmID);
+
+                client.DeleteAlarmCompleted += (object sender, DeleteAlarmCompletedEventArgs e) =>
+                {
+                    if (e.Result == 1)
+                    {
+                        Toast.MakeText(this, "Alarm Deleted!", ToastLength.Short).Show();
+                        //delete from alarm manager
+                        deleteFromAlarmMgr(alarmID);
+                        //delete from list of alarms and update list view
+                        alarms.RemoveAt(findAlarm(alarmID));
+                        Console.WriteLine("NUM ALARMS: " + alarms.Count);
+                        listView.RemoveAllViewsInLayout();
+                        psa.NotifyDataSetChanged();
+                    } else
+                    {
+                        Toast.MakeText(this, "Delete Failed on Database", ToastLength.Short).Show();
+                    }
+
+                };
+
+                
+            }
+        }
+
+
+        private int findAlarm(int alarmID)
+        {
+            int result = -1;
+
+            for (int pos = 0; pos < alarms.Count; pos++)
+            {
+                if (alarms[pos].AlarmID == alarmID)
+                {
+                    result = pos;
+                    //Toast.MakeText(this, "ALARM FOUND IS " + result.AlarmName, ToastLength.Short).Show();
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        
+
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            //show the AddALarm activity
+            Intent i = new Intent(this, typeof(AddAlarm));
+            StartActivityForResult(i, 1);
+
+            //pull up dialog
+            //FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            //AddAlarmFrag addAlarmDialog = new AddAlarmFrag();
+            //addAlarmDialog.Show(transaction, "Add Alarm Dialog");
+
+            //Alarm alarm = new Alarm {
+            //        AlarmName = "New Alarm",
+            //        AlarmTime = new TimeSpan(9,0,0),
+            //    };
+            //data.Add(alarm);
+            //psa.NotifyDataSetChanged();
+            //addAlarm(data.Count - 1);
+        }
+
+
+        //deal with the add alarm result (code 1) and edit alarm result (code 2)
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent alarmData)
+        {
+            base.OnActivityResult(requestCode, resultCode, alarmData);
+            if (requestCode == 2 && resultCode == Result.Ok)
+            {
+                Alarm alarmEdited = JsonConvert.DeserializeObject<Alarm>(alarmData.GetStringExtra("EditedAlarm"));
+
+                int index = -1;
+
+                for (int pos=0; pos<alarms.Count; pos++)
+                {
+                    if (alarms[pos].AlarmID == alarmEdited.AlarmID)
+                    {
+                        index = pos;
+                        //Toast.MakeText(this, "ALARM FOUND IS " + result.AlarmName, ToastLength.Short).Show();
+                        break;
+                    }
+                }
+
+                //replace the old alarm object with the edited one (still has same id)
+                alarms[index] = alarmEdited;
+                //update the list view
+                listView.RemoveAllViewsInLayout();
+                psa.NotifyDataSetChanged();
+                //delete exisiting alarm and create new one from edited one - cancelcurrent flag will actually do this for us
+                addAlarm(alarmEdited.AlarmID, alarmEdited.AlarmTime, getNumDaysToAlarm(alarmEdited));
+
+            }
+
+            else if (requestCode == 1 && resultCode == Result.Ok)
+            {
+               
+
+                Alarm newAlarm = JsonConvert.DeserializeObject<Alarm>(alarmData.GetStringExtra("NewAlarm"));
+                //newAlarm.AlarmID = alarmIDIndex;
+                //add alarm object
+                alarms.Add(newAlarm);
+                //update the list view
+                listView.RemoveAllViewsInLayout();
+                psa.NotifyDataSetChanged();
+                //create the new alarm in alarm manager using alarmIdindex as request code in alarm manager
+
+                int daysFromNow = getNumDaysToAlarm(newAlarm);
+
+                addAlarm(newAlarm.AlarmID, newAlarm.AlarmTime, daysFromNow);
+                //alarmIDIndex++;
+            }
+        }
+
+        private int getNumDaysToAlarm(Alarm alarm)
+        {
+            //0 indicates the alarm is set for today or not repeating
+            int diff = 0;
+
+            if (alarm.AlarmDays.Count > 0 && alarm.AlarmDays[0] != 0)
+            {
+                //get today's day
+                Calendar now = Calendar.GetInstance(Java.Util.TimeZone.Default);
+                int today = now.Get(CalendarField.DayOfWeek);
+
+                //get alarm day difference until today
+                diff = (7 + (alarm.AlarmDays[0] - today)) % 7;
+
+                for (int i = 1; i < alarm.AlarmDays.Count; i++)
+                {
+                    int temp = (7 + (alarm.AlarmDays[i] - today)) % 7;
+                    if (temp < diff)
+                    {
+                        diff = temp;
+                    }
+                }             
+
+            }
+            return diff;
+        }
+
+        public void turnAlarmOn(int alarmID)
+        {
+            Toast.MakeText(Application.Context, "Alarm " + alarmID + " ON", ToastLength.Short).Show();
+
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Service1 client = new Service1();
+                client.ToggleAlarmAsync(alarmID, "y");
+
+                client.ToggleAlarmCompleted += (object sender, ToggleAlarmCompletedEventArgs e) =>
+                {
+                    //update the alarms active state
+                    for (int pos = 0; pos < alarms.Count; pos++)
+                    {
+                        if (alarms[pos].AlarmID == alarmID)
+                        {
+                            alarms[pos].AlarmActive = true;
+
+                            //turn the alarm back on
+                            addAlarm(alarmID, alarms[pos].AlarmTime, getNumDaysToAlarm(alarms[pos]));
+
+                            //Toast.MakeText(this, "ALARM FOUND IS " + result.AlarmName, ToastLength.Short).Show();
+                            break;
+                        }
+                    }
+                };
+            }
+            
+        }
+
+
+        public void turnAlarmOff(int alarmID)
+        {
+            Toast.MakeText(Application.Context, "Alarm " + alarmID + " OFF", ToastLength.Short).Show();
+
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Service1 client = new Service1();
+                client.ToggleAlarmAsync(alarmID, "n");
+
+                client.ToggleAlarmCompleted += (object sender, ToggleAlarmCompletedEventArgs e) =>
+                {
+                    //update the alarms active state
+                    for (int pos = 0; pos < alarms.Count; pos++)
+                    {
+                        if (alarms[pos].AlarmID == alarmID)
+                        {
+                            alarms[pos].AlarmActive = false;
+                            listView.RemoveAllViewsInLayout();
+                            psa.NotifyDataSetChanged();
+
+                            //Toast.MakeText(this, "ALARM FOUND IS " + result.AlarmName, ToastLength.Short).Show();
+                            break;
+                        }
+                    }
+                    deleteFromAlarmMgr(alarmID);
+                };
+            }
+            
+        }
+
+        private void deleteFromAlarmMgr(int code)
+        {
+            mgr = (AlarmManager)GetSystemService(AlarmService);
+
+            Intent intent = new Intent(this, typeof(AlarmReceiver));
+            PendingIntent pendingIntent = PendingIntent.GetActivity(this, code, intent, PendingIntentFlags.UpdateCurrent); 
+            mgr.Cancel(pendingIntent);
+
+        }
+
+        private void addAlarm(int code, TimeSpan alarmTime, int daysFromNow)
+        {
+            Intent intent = new Intent(this, typeof(AlarmReceiver));
+            intent.PutExtra("AlarmID", code);
+            PendingIntent pendingIntent = PendingIntent.GetActivity(this, code, intent, PendingIntentFlags.CancelCurrent);
+
+            mgr = (AlarmManager)GetSystemService(AlarmService);
+
+            //work out the alarm time in milliseconds and account for times that are the next day
+            //get a calendar instance for the current day/time
+            Calendar now = Calendar.GetInstance(Java.Util.TimeZone.Default);
+            //get a calendar instance for today and set the required alarm hour and minute
+            Calendar alarm = Calendar.GetInstance(Java.Util.TimeZone.Default);
+            alarm.Set(CalendarField.HourOfDay, alarmTime.Hours);
+            alarm.Set(CalendarField.Minute, alarmTime.Minutes);
+            alarm.Set(CalendarField.Second, 0);
+            long alarmMillis = alarm.TimeInMillis + (86400000L * daysFromNow); 
+            //if the alarm time is before now then add a day
+            if (alarm.Before(now) && daysFromNow == 0)
+            {
+                alarmMillis += 86400000L;
+            } 
+
+            // mgr.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
+            //mgr.Set(AlarmType.RtcWakeup, Calendar.GetInstance(Java.Util.TimeZone.Default).TimeInMillis + (code + 1) * 10 * 1000, pendingIntent);
+            mgr.Set(AlarmType.RtcWakeup, alarmMillis, pendingIntent);
+            
+            TimeSpan currentOffset = System.TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
+            var time = TimeSpan.FromMilliseconds(alarmMillis);
+            Toast.MakeText(this, (new DateTime(1970, 1, 1) + time + currentOffset).ToString(), ToastLength.Short).Show();
+
+        }
+        private void createAlarms()
+        {
+            foreach (Alarm alarm in alarms)
+            {
+                //only add alarms that are active
+                if (alarm.AlarmActive)
+                {
+                    addAlarm(alarm.AlarmID, alarm.AlarmTime, getNumDaysToAlarm(alarm));
+                }
+            }
+
+            //View v;
+
+            //for (int i = 0; i < listView.Count; i++)
+            //{
+            //    v = listView.Adapter.GetView(i, null, null);
+            //    TextView tv = v.FindViewById<TextView>(Resource.Id.Text1);
+            //    Toast.MakeText(this, tv.Text + " created", ToastLength.Short).Show();
+
+            //    //create the alarm
+
+            //    addAlarm(i);
+            //}
+
+            
+        }
+                
+
+        private void OnListItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var alarm = listView.GetItemAtPosition(e.Position).Cast<Alarm>();           
+
+            //Alarm alarm = alarms[e.Position];
+            Toast.MakeText(this, "AlarmID: " + (alarm.AlarmID).ToString(), ToastLength.Short).Show();
+
+            //get the alarm object and serialize it so we can pass it to the edit alarm activity
+            Intent i = new Intent(this, typeof(EditAlarm));
+            i.PutExtra("Alarm", JsonConvert.SerializeObject(alarm));
+            StartActivityForResult(i, 2);
+        }
+
+        private List<int> convertDaysToInt(string[] days)
+        {
+            List<int> daysAsInt = new List<int>();
+
+            foreach (var item in days)
+            {
+                switch (item)
+                {
+                    case "NONE":
+                        daysAsInt.Add(0);
+                        break;
+                    case "SUN":
+                        daysAsInt.Add(1);
+                        break;
+                    case "MON":
+                        daysAsInt.Add(2);
+                        break;
+                    case "TUE":
+                        daysAsInt.Add(3);
+                        break;
+                    case "WED":
+                        daysAsInt.Add(4);
+                        break;
+                    case "THU":
+                        daysAsInt.Add(5);
+                        break;
+                    case "FRI":
+                        daysAsInt.Add(6);
+                        break;
+                    case "SAT":
+                        daysAsInt.Add(7);
+                        break;                    
+                }
+            }
+
+            return daysAsInt;
+        }
+
+        private void loadAlarms()
+        {
+            alarms = new List<Alarm>();
+
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                Service1 client = new Service1();
+                client.ListAlarmsAsync("dave");
+
+                client.ListAlarmsCompleted += (object sender, ListAlarmsCompletedEventArgs e) =>
+                {
+                    foreach (DataRow dr in e.Result.Rows)
+                    {
+                        //extract alarm days
+                        string[] daysAlarmOn = (dr["Days"].ToString()).Split(',');
+                        List<int> days = convertDaysToInt(daysAlarmOn);
+
+                        //convert alarm time from string to TimeSpan
+                        string[] timeAlarm = (dr["AlarmTime"].ToString()).Split(':');
+                        TimeSpan alarmTimeSpan = new TimeSpan(int.Parse(timeAlarm[0]), int.Parse(timeAlarm[1]), 0);
+
+                        //convert active y/n to boolean
+                        string active = dr["AlarmActive"].ToString();
+                        Boolean alarmActive = false;
+                        if (active == "y")
+                        {
+                            alarmActive = true;
+                        }
+
+                        Alarm alarm = new Alarm
+                        {
+                            AlarmID = int.Parse(dr["AlarmID"].ToString()),
+                            AlarmName = dr["AlarmName"].ToString(),
+                            AlarmTime = alarmTimeSpan,
+                            AlarmActive = alarmActive,
+                            AlarmReminder = int.Parse(dr["AlarmReminder"].ToString()),
+                            AlarmDays = days
+                        };                      
+
+                        alarms.Add(alarm);
+                    }
+
+                    
+
+                    //check if AlarmReceiver called main activity
+                    int alarmIDTurnedOff = Intent.GetIntExtra("AlarmJustStopped", -1);
+
+                    if (alarmIDTurnedOff != -1)
+                    {
+                        //must be the AlarmReceiver calling
+                        Toast.MakeText(this, "Alarm Rx Just turned off Alarm: " + alarmIDTurnedOff, ToastLength.Short).Show();
+                        //TODO set the next alarm for repeating alarms
+                        Alarm alarmToUpdate = alarms[findAlarm(alarmIDTurnedOff)];
+                        //TODO turn off any one-off alarms
+                        if (alarmToUpdate.AlarmDays[0] == 0)
+                        {
+                            turnAlarmOff(alarmToUpdate.AlarmID);
+
+                        }
+                        else //update existing repeating alarm
+                        {
+                            turnAlarmOn(alarmToUpdate.AlarmID);
+
+                        }
+                    } else
+                    {
+                        //create the alarms for each one in the list
+                        createAlarms();
+                    }
+
+                    //create a list view and set data source to the sample alarms list
+                    psa = new PeopleScreenAdapter(this, alarms);
+                    listView.Adapter = psa;
+                    //set a click handler for when an list item is clicked (edit alarm)
+                    listView.ItemClick += OnListItemClick;
+
+                    //long click will give user option to delete alarm
+                    listView.ItemLongClick += ListView_ItemLongClick;
+
+                                     
+                    
+                };
+            }
+        }
+
+
+        public override void OnBackPressed()
+        {
+            Toast.MakeText(this, "Back Button Pressed..", ToastLength.Short).Show();
+            MoveTaskToBack(true);
+        }
+
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Toast.MakeText(this, "Resuming..", ToastLength.Short).Show();
+            //get the name of the activity that called this one - i.e. check if called from AlarmReceiver
+            
+            // Recreate();
+        }
+
+    }
+
+    public static class ObjectTypeHelper
+    {
+        public static T Cast<T>(this Java.Lang.Object obj) where T : class
+        {
+            var propertyInfo = obj.GetType().GetProperty("Instance");
+            return propertyInfo == null ? null : propertyInfo.GetValue(obj, null) as T;
+        }
+    }
+
+}
+

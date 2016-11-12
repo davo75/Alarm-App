@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IService1_ListAlarms_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListAlarms" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ListAlarms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListAlarmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPassword" />
+  </wsdl:message>
+  <wsdl:message name="IService1_CheckPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddNewAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IService1_AddNewAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewAlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IService1_UpdateAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ToggleAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:ToggleAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IService1_ToggleAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ToggleAlarmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAlarm_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAlarm" />
+  </wsdl:message>
+  <wsdl:message name="IService1_DeleteAlarm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAlarmResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IService1">
+    <wsdl:operation name="ListAlarms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ListAlarms" message="tns:IService1_ListAlarms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ListAlarmsResponse" message="tns:IService1_ListAlarms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/CheckPassword" message="tns:IService1_CheckPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/CheckPasswordResponse" message="tns:IService1_CheckPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/AddNewAlarm" message="tns:IService1_AddNewAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/AddNewAlarmResponse" message="tns:IService1_AddNewAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/UpdateAlarm" message="tns:IService1_UpdateAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/UpdateAlarmResponse" message="tns:IService1_UpdateAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ToggleAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/ToggleAlarm" message="tns:IService1_ToggleAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/ToggleAlarmResponse" message="tns:IService1_ToggleAlarm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlarm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService1/DeleteAlarm" message="tns:IService1_DeleteAlarm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService1/DeleteAlarmResponse" message="tns:IService1_DeleteAlarm_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListAlarms">
+      <soap:operation soapAction="http://tempuri.org/IService1/ListAlarms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckPassword">
+      <soap:operation soapAction="http://tempuri.org/IService1/CheckPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewAlarm">
+      <soap:operation soapAction="http://tempuri.org/IService1/AddNewAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAlarm">
+      <soap:operation soapAction="http://tempuri.org/IService1/UpdateAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ToggleAlarm">
+      <soap:operation soapAction="http://tempuri.org/IService1/ToggleAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAlarm">
+      <soap:operation soapAction="http://tempuri.org/IService1/DeleteAlarm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IService1" binding="tns:BasicHttpBinding_IService1">
+      <soap:address location="http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

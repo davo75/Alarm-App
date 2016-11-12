@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAlarmName"
+            android:hint="Alarm Name" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtReminder"
+            android:hint="Reminder" />
+      <Spinner
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/reminderList"
+          android:background="@android:color/background_light"
+          android:popupBackground="@android:color/background_light" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAlarmTime"
+            android:hint="Alarm Time"
+            android:focusableInTouchMode="false" />
+        <CheckBox
+            android:text="Mon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxMon" />
+        <CheckBox
+            android:text="Tue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxTue" />
+        <CheckBox
+            android:text="Wed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxWed" />
+        <CheckBox
+            android:text="Thu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxThu" />
+        <CheckBox
+            android:text="Fri"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxFri" />
+        <CheckBox
+            android:text="Sat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxSat" />
+        <CheckBox
+            android:text="Sun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/cBoxSun" />
+        <Button
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSaveAlarm" />
+        <Button
+            android:text="Cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancelEditAlarm" />
+    </LinearLayout>
+</ScrollView>
