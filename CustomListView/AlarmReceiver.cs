@@ -21,6 +21,7 @@ namespace CustomListView
         private MediaPlayer mediaPlayer;
         int alarmID;
         string username;
+        bool reminder;
         Animation fadeIn;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -32,34 +33,63 @@ namespace CustomListView
             string alarmName = Intent.GetStringExtra("AlarmName");
             string alarmTime = Intent.GetStringExtra("AlarmTime");
 
+            //check if this is the reminder alarm
+            reminder = Intent.GetBooleanExtra("Reminder", false);
+
             Toast.MakeText(this, "alarm " + alarmID + " rx", ToastLength.Short).Show();
 
             this.RequestWindowFeature(WindowFeatures.NoTitle);
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
-
-            SetContentView(Resource.Layout.alarm);
-
-            TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
-            TextView time = FindViewById<TextView>(Resource.Id.txtAlarmTime);
-
             Typeface font = Typeface.CreateFromAsset(Assets, "fonts/Montserrat-Bold.ttf");
-            name.Typeface = font;
-            time.Typeface = font;
 
-            name.Text = alarmName;
-            time.Text = alarmTime;
+            if (!reminder)
+            {
+                SetContentView(Resource.Layout.alarm);
 
-            fadeIn = AnimationUtils.LoadAnimation(this, Resource.Drawable.button_anim);
+                TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
+                TextView time = FindViewById<TextView>(Resource.Id.txtAlarmTime);
 
-            ImageButton stop = FindViewById<ImageButton>(Resource.Id.btnAlarmOff);
-            stop.StartAnimation(fadeIn);
+                
+                name.Typeface = font;
+                time.Typeface = font;
 
-            stop.Click += Stop_Click1;
+                name.Text = alarmName;
+                time.Text = alarmTime;
 
-            playSound(this, getAlarmUri());
+                fadeIn = AnimationUtils.LoadAnimation(this, Resource.Drawable.button_anim);
+
+                ImageButton stopAlarm = FindViewById<ImageButton>(Resource.Id.btnAlarmOff);
+                stopAlarm.StartAnimation(fadeIn);
+
+                stopAlarm.Click += StopAlarm_Click;
+
+                playSound(this, getAlarmUri());
+
+            } else
+            {
+                SetContentView(Resource.Layout.reminder);
+                TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
+                name.Typeface = font;
+                name.Text = alarmName;
+
+                fadeIn = AnimationUtils.LoadAnimation(this, Resource.Drawable.button_anim);
+
+                ImageButton stopReminder = FindViewById<ImageButton>(Resource.Id.btnAlarmOff);
+                stopReminder.StartAnimation(fadeIn);
+
+                stopReminder.Click += StopReminder_Click;
+
+                playSound(this, getAlarmUri());
+            }
         }
 
-        private void Stop_Click1(object sender, EventArgs e)
+        private void StopReminder_Click(object sender, EventArgs e)
+        {
+            mediaPlayer.Stop();
+            Finish();
+        }
+
+        private void StopAlarm_Click(object sender, EventArgs e)
         {
             mediaPlayer.Stop();
 

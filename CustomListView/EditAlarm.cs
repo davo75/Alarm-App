@@ -59,14 +59,10 @@ namespace CustomListView
             adapter.SetDropDownViewResource(Resource.Drawable.spinner_item_style);
             alarmReminderSpinner.Adapter = adapter;
 
-            //var adapter = ArrayAdapter.CreateFromResource(
-               // this, Resource.Array.reminder_array, Android.Resource.Layout.SimpleSpinnerItem);
-
-           // adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-           // alarmReminderSpinner.Adapter = adapter;
-
-
-            alarmReminderSpinner.SetSelection(2); // alarmToEdit.AlarmReminder.ToString();
+            string[] str = Resources.GetStringArray(Resource.Array.reminder_array);
+            int pos = Array.IndexOf(str, alarmToEdit.AlarmReminder.ToString() + " min");
+            
+            alarmReminderSpinner.SetSelection(pos); 
 
             List<int> days = new List<int>();
 
@@ -155,8 +151,8 @@ namespace CustomListView
             string[] aTime = alarmTime.Text.Split(':');
             TimeSpan aTimSpan = new TimeSpan(int.Parse(aTime[0]), int.Parse(aTime[1]), 0);
             alarmToEdit.AlarmTime = aTimSpan;
-            //alarmToEdit.AlarmReminder = int.Parse(alarmReminder.Text);
-            alarmToEdit.AlarmReminder = int.Parse(alarmReminderSpinner.SelectedItem.ToString());
+            string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
+            alarmToEdit.AlarmReminder = int.Parse(reminderTime.Substring(0, reminderTime.Length - 4));
             //turn on
             alarmToEdit.AlarmActive = true;
 

@@ -52,7 +52,7 @@
             android:text="Tue, 07:30"
             android:textColor="#fff" />
         <ImageView
-            android:src="@drawable/ic_alarm_white_48dp"
+            android:src="@drawable/ic_alarm_blue_48dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/imgAlarmIcon"

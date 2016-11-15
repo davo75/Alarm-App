@@ -368,9 +368,15 @@ namespace CustomListView
         {
             mgr = (AlarmManager)GetSystemService(AlarmService);
 
+            //cancel the alarm
             Intent intent = new Intent(this, typeof(AlarmReceiver));
             PendingIntent pendingIntent = PendingIntent.GetActivity(this, code, intent, PendingIntentFlags.UpdateCurrent); 
             mgr.Cancel(pendingIntent);
+
+            //cancel any reminders too
+            Intent intentReminder = new Intent(this, typeof(AlarmReceiver));
+            PendingIntent pendingIntentReminder = PendingIntent.GetActivity(this, code+1000, intentReminder, PendingIntentFlags.UpdateCurrent);
+            mgr.Cancel(pendingIntentReminder);
 
         }
 
@@ -405,6 +411,19 @@ namespace CustomListView
             // mgr.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
             //mgr.Set(AlarmType.RtcWakeup, Calendar.GetInstance(Java.Util.TimeZone.Default).TimeInMillis + (code + 1) * 10 * 1000, pendingIntent);
             mgr.SetExact(AlarmType.RtcWakeup, alarmMillis, pendingIntent);
+
+            //set the reminder for the alarm if set
+            if (alarmToSet.AlarmReminder != 0)
+            {
+                Intent reminderIntent = new Intent(this, typeof(AlarmReceiver));
+                reminderIntent.PutExtra("Reminder", true);
+                reminderIntent.PutExtra("AlarmID", code);
+                reminderIntent.PutExtra("AlarmName", alarmToSet.AlarmName);
+                reminderIntent.PutExtra("AlarmTime", (alarmToSet.AlarmTime).ToString(@"hh\:mm"));
+                PendingIntent pendingIntentReminder = PendingIntent.GetActivity(this, code+1000, reminderIntent, PendingIntentFlags.CancelCurrent);
+                //set the reminder alarm in the alarm manager
+                mgr.SetExact(AlarmType.RtcWakeup, alarmMillis - ((alarmToSet.AlarmReminder-4)*60*1000), pendingIntentReminder);
+            }
             
             TimeSpan currentOffset = System.TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
             var time = TimeSpan.FromMilliseconds(alarmMillis);

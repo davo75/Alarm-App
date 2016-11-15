@@ -140,7 +140,9 @@ namespace CustomListView
 
                 int[] daysSelected = days.ToArray();
 
-                client.AddNewAlarmAsync("dave", alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(alarmReminderSpinner.SelectedItem.ToString()), daysSelected);
+                string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
+
+                client.AddNewAlarmAsync("dave", alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), daysSelected);
 
                 client.AddNewAlarmCompleted += (object sender1, AddNewAlarmCompletedEventArgs e1) =>
                 {

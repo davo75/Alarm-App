@@ -8,7 +8,7 @@
     <item name="android:colorPrimary">@color/my_blue</item>
     <item name="android:colorAccent">@color/my_light_blue</item>
     <item name="android:colorPrimaryDark">@color/my_dark_blue</item>
-    <item name="android:textColorPrimary">#fff</item>
+    <!--<item name="android:textColorPrimary">#fff</item>-->
     <item name="android:statusBarColor">@color/my_dark_blue</item>
     <item name="android:windowBackground">@color/my_dark_blue</item>
   </style>

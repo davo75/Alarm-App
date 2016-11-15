@@ -30,14 +30,23 @@ namespace CustomListView
 
             TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
             TextView time = FindViewById<TextView>(Resource.Id.txtAlarmTime);
+            TextView txtRemaining = FindViewById<TextView>(Resource.Id.txtRemaining);
+            TextView remainingTime = FindViewById<TextView>(Resource.Id.txtRemainingTime);
+
             if (Intent.GetStringExtra("Alarm") != "No Alarms Set")
             {
                 alarmToShow = JsonConvert.DeserializeObject<Alarm>(Intent.GetStringExtra("Alarm"));                
                 name.Text = alarmToShow.AlarmName;               
                 time.Text = (alarmToShow.AlarmTime).ToString(@"hh\:mm");
+                //show countdown until next alarm
+
             } else
             {
                 time.Text = "No Alarms Set";
+                name.Visibility = ViewStates.Invisible;
+                txtRemaining.Visibility = ViewStates.Invisible;
+                remainingTime.Visibility = ViewStates.Invisible;
+
             }
 
             //button for navigating to  alarm list screen
