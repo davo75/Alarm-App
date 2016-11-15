@@ -197,8 +197,8 @@ namespace CustomListView
 			// aapt resource value: 0x7f090016
 			public const int alarmName = 2131296278;
 			
-			// aapt resource value: 0x7f090025
-			public const int alarm_add = 2131296293;
+			// aapt resource value: 0x7f090028
+			public const int alarm_add = 2131296296;
 			
 			// aapt resource value: 0x7f090023
 			public const int btnAlarmList = 2131296291;
@@ -269,6 +269,9 @@ namespace CustomListView
 			// aapt resource value: 0x7f090013
 			public const int imageView1 = 2131296275;
 			
+			// aapt resource value: 0x7f090025
+			public const int imgAlarmIcon = 2131296293;
+			
 			// aapt resource value: 0x7f090012
 			public const int linearLayout1 = 2131296274;
 			
@@ -295,6 +298,12 @@ namespace CustomListView
 			
 			// aapt resource value: 0x7f090003
 			public const int txtAlarmTime = 2131296259;
+			
+			// aapt resource value: 0x7f090027
+			public const int txtRemaining = 2131296295;
+			
+			// aapt resource value: 0x7f090026
+			public const int txtRemainingTime = 2131296294;
 			
 			// aapt resource value: 0x7f090001
 			public const int txtReminder = 2131296257;

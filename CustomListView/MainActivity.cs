@@ -59,12 +59,59 @@ namespace CustomListView
         private void NextAlarm_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(NextAlarm));
+            if (getNextAlarm() != null)
+            {
+                intent.PutExtra("Alarm", JsonConvert.SerializeObject(getNextAlarm()));
+            }
+            else
+            {
+                intent.PutExtra("Alarm", "No Alarms Set");
+            }
             StartActivity(intent);
         }
 
         private Alarm getNextAlarm()
         {
             Alarm nextAlarm = null;
+
+            //set the lowest time to 7 days in milliseconds - gotta start somewhere
+            long lowestTime = 7 * 86400000L;
+
+            //get the time now
+            Calendar now = Calendar.GetInstance(Java.Util.TimeZone.Default);
+            //get a calendar instance for today and set the required alarm hour and minute
+            Calendar theAlarmTime = Calendar.GetInstance(Java.Util.TimeZone.Default);
+
+            foreach (Alarm alarm in alarms)
+            {
+                //if the alarm is on i.e. active
+                if (alarm.AlarmActive)
+                {
+                    //convert its alarm time into a calendar instance
+                    theAlarmTime.Set(CalendarField.HourOfDay, alarm.AlarmTime.Hours);
+                    theAlarmTime.Set(CalendarField.Minute, alarm.AlarmTime.Minutes);
+                    theAlarmTime.Set(CalendarField.Second, 0);
+
+                    int daysFromNow = getNumDaysToAlarm(alarm);
+
+                    long alarmMillis = theAlarmTime.TimeInMillis + (86400000L * daysFromNow);
+                    //if the alarm time is before now then add a day
+                    if (theAlarmTime.Before(now) && daysFromNow == 0)
+                    {
+                        alarmMillis += 86400000L;
+                    }
+
+                    long timeToCheck = alarmMillis - now.TimeInMillis;
+
+                    if (timeToCheck  > 0 && timeToCheck  < lowestTime)
+                    {
+                        lowestTime = timeToCheck;
+                        nextAlarm = alarm;
+                    }
+                }
+            
+            }         
+            
 
             return nextAlarm;
         }
@@ -332,6 +379,7 @@ namespace CustomListView
             Alarm alarmToSet= alarms[findAlarm(code)];
 
             Intent intent = new Intent(this, typeof(AlarmReceiver));
+            intent.PutExtra("Username", username);
             intent.PutExtra("AlarmID", code);
             intent.PutExtra("AlarmName", alarmToSet.AlarmName);
             intent.PutExtra("AlarmTime", (alarmToSet.AlarmTime).ToString(@"hh\:mm"));
@@ -446,6 +494,8 @@ namespace CustomListView
         private void loadAlarms()
         {
             alarms = new List<Alarm>();
+
+            
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {

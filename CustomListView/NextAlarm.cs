@@ -9,12 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 
 namespace CustomListView
 {
     [Activity(Label = "NextAlarm")]
     public class NextAlarm : Activity
     {
+        Alarm alarmToShow;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -26,14 +28,27 @@ namespace CustomListView
             SetActionBar(toolbar);
             ActionBar.Title = "Next Alarm";
 
+            TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
+            TextView time = FindViewById<TextView>(Resource.Id.txtAlarmTime);
+            if (Intent.GetStringExtra("Alarm") != "No Alarms Set")
+            {
+                alarmToShow = JsonConvert.DeserializeObject<Alarm>(Intent.GetStringExtra("Alarm"));                
+                name.Text = alarmToShow.AlarmName;               
+                time.Text = (alarmToShow.AlarmTime).ToString(@"hh\:mm");
+            } else
+            {
+                time.Text = "No Alarms Set";
+            }
+
             //button for navigating to  alarm list screen
-            ImageButton alarmList = FindViewById<ImageButton>(Resource.Id.bt);
+            ImageButton alarmList = FindViewById<ImageButton>(Resource.Id.btnAlarmList);
             alarmList.Click += AlarmList_Click;
         }
 
         private void AlarmList_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(MainActivity));
+            intent.SetFlags(ActivityFlags.ReorderToFront);
             StartActivity(intent);
         }
     }

@@ -20,7 +20,7 @@ namespace CustomListView
     {
         private MediaPlayer mediaPlayer;
         int alarmID;
-
+        string username;
         Animation fadeIn;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,6 +28,7 @@ namespace CustomListView
             base.OnCreate(savedInstanceState);
 
             alarmID = Intent.GetIntExtra("AlarmID", -1);
+            username = Intent.GetStringExtra("Username");
             string alarmName = Intent.GetStringExtra("AlarmName");
             string alarmTime = Intent.GetStringExtra("AlarmTime");
 
@@ -63,6 +64,8 @@ namespace CustomListView
             mediaPlayer.Stop();
 
             Intent main = new Intent(this, typeof(MainActivity));
+            //main.SetFlags(ActivityFlags.ReorderToFront);
+            main.PutExtra("Username", username);
             main.PutExtra("AlarmJustStopped", alarmID);
             StartActivity(main);
             Finish();

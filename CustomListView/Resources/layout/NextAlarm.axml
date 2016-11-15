@@ -40,18 +40,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="100dp">
         <TextView
-            android:text="Reminder"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/txtAlarmTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="20dp"
-            android:textSize="45sp"
             android:textStyle="bold"
+            android:textSize="50sp"
+            android:text="Tue, 07:30"
             android:textColor="#fff" />
+        <ImageView
+            android:src="@drawable/ic_alarm_white_48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgAlarmIcon"
+            android:layout_marginTop="40dp" />
         <TextView
             android:text="Wake Up"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -59,8 +64,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="#90551b"
+            android:textColor="@color/my_green"
+            android:textStyle="bold"
+            android:textSize="40sp" />
+        <TextView
+            android:text="05:45"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRemainingTime"
+            android:textColor="@color/my_light_blue"
+            android:gravity="center"
+            android:layout_marginTop="150dp"
             android:textStyle="bold"
             android:textSize="30sp" />
+        <TextView
+            android:text="remaining"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRemaining"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>

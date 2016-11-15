@@ -44,7 +44,7 @@ namespace CustomListView
             alarmName.Text = alarmToEdit.AlarmName;
 
             alarmTime = FindViewById<EditText>(Resource.Id.txtAlarmTime);
-            alarmTime.Text = alarmToEdit.AlarmTime.ToString();
+            alarmTime.Text = alarmToEdit.AlarmTime.ToString(@"hh\:mm");
 
             alarmTime.Click += AlarmTime_Click;
 
