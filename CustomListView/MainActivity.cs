@@ -31,27 +31,42 @@ namespace CustomListView
         {
             base.OnCreate(bundle);
 
-            this.RequestWindowFeature(WindowFeatures.NoTitle);
+           // this.RequestWindowFeature(WindowFeatures.NoTitle);
            // this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            //add the toolbar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "My Alarms";
+
+            //button for adding a new alarm
+            //Button btnAdd = FindViewById<Button>(Resource.Id.button2);
+            //btnAdd.Click += BtnAdd_Click;
 
             listView = FindViewById<ListView>(Resource.Id.List);
 
-            //create 3 sample alarms
+            //load alarm data
             loadAlarms();
             
 
-            //button for adding a new alarm
-            Button btnAdd = FindViewById<Button>(Resource.Id.button2);
-            btnAdd.Click += BtnAdd_Click;
-
-
-            
-            
-            
-
             Toast.MakeText(this, "OnCreate", ToastLength.Short).Show();
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menu, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            //Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
+            //    ToastLength.Short).Show();
+            //show the AddALarm activity
+            Intent i = new Intent(this, typeof(AddAlarm));
+            StartActivityForResult(i, 1);
+            return base.OnOptionsItemSelected(item);
         }
 
         private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -127,25 +142,25 @@ namespace CustomListView
 
         
 
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            //show the AddALarm activity
-            Intent i = new Intent(this, typeof(AddAlarm));
-            StartActivityForResult(i, 1);
+        //private void BtnAdd_Click(object sender, EventArgs e)
+        //{
+        //    //show the AddALarm activity
+        //    Intent i = new Intent(this, typeof(AddAlarm));
+        //    StartActivityForResult(i, 1);
 
-            //pull up dialog
-            //FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            //AddAlarmFrag addAlarmDialog = new AddAlarmFrag();
-            //addAlarmDialog.Show(transaction, "Add Alarm Dialog");
+        //    //pull up dialog
+        //    //FragmentTransaction transaction = FragmentManager.BeginTransaction();
+        //    //AddAlarmFrag addAlarmDialog = new AddAlarmFrag();
+        //    //addAlarmDialog.Show(transaction, "Add Alarm Dialog");
 
-            //Alarm alarm = new Alarm {
-            //        AlarmName = "New Alarm",
-            //        AlarmTime = new TimeSpan(9,0,0),
-            //    };
-            //data.Add(alarm);
-            //psa.NotifyDataSetChanged();
-            //addAlarm(data.Count - 1);
-        }
+        //    //Alarm alarm = new Alarm {
+        //    //        AlarmName = "New Alarm",
+        //    //        AlarmTime = new TimeSpan(9,0,0),
+        //    //    };
+        //    //data.Add(alarm);
+        //    //psa.NotifyDataSetChanged();
+        //    //addAlarm(data.Count - 1);
+        //}
 
 
         //deal with the add alarm result (code 1) and edit alarm result (code 2)
@@ -298,8 +313,12 @@ namespace CustomListView
 
         private void addAlarm(int code, TimeSpan alarmTime, int daysFromNow)
         {
+            Alarm alarmToSet= alarms[findAlarm(code)];
+
             Intent intent = new Intent(this, typeof(AlarmReceiver));
             intent.PutExtra("AlarmID", code);
+            intent.PutExtra("AlarmName", alarmToSet.AlarmName);
+            intent.PutExtra("AlarmTime", (alarmToSet.AlarmTime).ToString(@"hh\:mm"));
             PendingIntent pendingIntent = PendingIntent.GetActivity(this, code, intent, PendingIntentFlags.CancelCurrent);
 
             mgr = (AlarmManager)GetSystemService(AlarmService);
@@ -321,7 +340,7 @@ namespace CustomListView
 
             // mgr.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
             //mgr.Set(AlarmType.RtcWakeup, Calendar.GetInstance(Java.Util.TimeZone.Default).TimeInMillis + (code + 1) * 10 * 1000, pendingIntent);
-            mgr.Set(AlarmType.RtcWakeup, alarmMillis, pendingIntent);
+            mgr.SetExact(AlarmType.RtcWakeup, alarmMillis, pendingIntent);
             
             TimeSpan currentOffset = System.TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
             var time = TimeSpan.FromMilliseconds(alarmMillis);

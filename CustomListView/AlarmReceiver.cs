@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Media;
+using Android.Views.Animations;
+using Android.Graphics;
 
 namespace CustomListView
 {
@@ -19,11 +21,15 @@ namespace CustomListView
         private MediaPlayer mediaPlayer;
         int alarmID;
 
+        Animation fadeIn;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             alarmID = Intent.GetIntExtra("AlarmID", -1);
+            string alarmName = Intent.GetStringExtra("AlarmName");
+            string alarmTime = Intent.GetStringExtra("AlarmTime");
 
             Toast.MakeText(this, "alarm " + alarmID + " rx", ToastLength.Short).Show();
 
@@ -32,14 +38,27 @@ namespace CustomListView
 
             SetContentView(Resource.Layout.alarm);
 
-            Button stop = FindViewById<Button>(Resource.Id.stopAlarm);
+            TextView name = FindViewById<TextView>(Resource.Id.txtAlarmName);
+            TextView time = FindViewById<TextView>(Resource.Id.txtAlarmTime);
 
-            stop.Click += Stop_Click;
+            Typeface font = Typeface.CreateFromAsset(Assets, "fonts/Montserrat-Bold.ttf");
+            name.Typeface = font;
+            time.Typeface = font;
+
+            name.Text = alarmName;
+            time.Text = alarmTime;
+
+            fadeIn = AnimationUtils.LoadAnimation(this, Resource.Drawable.button_anim);
+
+            ImageButton stop = FindViewById<ImageButton>(Resource.Id.btnAlarmOff);
+            stop.StartAnimation(fadeIn);
+
+            stop.Click += Stop_Click1;
 
             playSound(this, getAlarmUri());
         }
 
-        private void Stop_Click(object sender, EventArgs e)
+        private void Stop_Click1(object sender, EventArgs e)
         {
             mediaPlayer.Stop();
 

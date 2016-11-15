@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
+  <string name="Username">Username</string>
+  <string name="Password">Password</string>
+  <string name="Login">Get Started</string>
+    
     <string name="ApplicationName">CustomListView</string>
     <string name="reminder_prompt">Set Reminder</string>
     <string-array name="reminder_array">

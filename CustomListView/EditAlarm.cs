@@ -11,17 +11,18 @@ using Android.Views;
 using Android.Widget;
 using System.Net.NetworkInformation;
 using CustomListView.au.edu.wa.central.mydesign.student;
+using Android.Views.InputMethods;
 
 namespace CustomListView
 {
-    [Activity(Label = "EditAlarm")]
+    [Activity(Label = "EditAlarm", WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
     public class EditAlarm : Activity
     {
 
         Alarm alarmToEdit;
         EditText alarmName;
         EditText alarmTime;
-        EditText alarmReminder;
+       
         TimeSpan timeOfAlarm;
         Spinner alarmReminderSpinner;
 
@@ -29,7 +30,13 @@ namespace CustomListView
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.EditAlarm);
+            SetContentView(Resource.Layout.EditAlarm2);
+
+            //add the toolbar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Edit Alarm";
+
 
             alarmToEdit = JsonConvert.DeserializeObject<Alarm>(Intent.GetStringExtra("Alarm"));
 
@@ -41,17 +48,25 @@ namespace CustomListView
 
             alarmTime.Click += AlarmTime_Click;
 
-            alarmReminder = FindViewById<EditText>(Resource.Id.txtReminder);
-            alarmReminder.Text = alarmToEdit.AlarmReminder.ToString();
+            
 
             alarmReminderSpinner = FindViewById<Spinner>(Resource.Id.reminderList);
             alarmReminderSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(alarmReminderSpinner_ItemSelected);
 
             var adapter = ArrayAdapter.CreateFromResource(
-                this, Resource.Array.reminder_array, Android.Resource.Layout.SimpleSpinnerItem);
+                this, Resource.Array.reminder_array, Resource.Layout.spinner_layout);
 
-            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            //adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             alarmReminderSpinner.Adapter = adapter;
+
+            //var adapter = ArrayAdapter.CreateFromResource(
+               // this, Resource.Array.reminder_array, Android.Resource.Layout.SimpleSpinnerItem);
+
+           // adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+           // alarmReminderSpinner.Adapter = adapter;
+
+
+            alarmReminderSpinner.SetSelection(2); // alarmToEdit.AlarmReminder.ToString();
 
             List<int> days = new List<int>();
 
@@ -62,40 +77,40 @@ namespace CustomListView
                 switch (day)
                 {
                     case 1:
-                        CheckBox cbSun = (CheckBox)FindViewById(Resource.Id.cBoxSun);
+                        ToggleButton cbSun = (ToggleButton)FindViewById(Resource.Id.cBoxSun);
                         cbSun.Checked = true;
                         break;
                     case 2:
-                        CheckBox cbMon = (CheckBox)FindViewById(Resource.Id.cBoxMon);
+                        ToggleButton cbMon = (ToggleButton)FindViewById(Resource.Id.cBoxMon);
                         cbMon.Checked = true;
                         break;
                     case 3:
-                        CheckBox cbTue = (CheckBox)FindViewById(Resource.Id.cBoxTue);
+                        ToggleButton cbTue = (ToggleButton)FindViewById(Resource.Id.cBoxTue);
                         cbTue.Checked = true;
                         break;
                     case 4:
-                        CheckBox cbWed = (CheckBox)FindViewById(Resource.Id.cBoxWed);
+                        ToggleButton cbWed = (ToggleButton)FindViewById(Resource.Id.cBoxWed);
                         cbWed.Checked = true;
                         break;
                     case 5:
-                        CheckBox cbThu = (CheckBox)FindViewById(Resource.Id.cBoxThu);
+                        ToggleButton cbThu = (ToggleButton)FindViewById(Resource.Id.cBoxThu);
                         cbThu.Checked = true;
                         break;
                     case 6:
-                        CheckBox cbFri = (CheckBox)FindViewById(Resource.Id.cBoxFri);
+                        ToggleButton cbFri = (ToggleButton)FindViewById(Resource.Id.cBoxFri);
                         cbFri.Checked = true;
                         break;
                     case 7:
-                        CheckBox cbSat = (CheckBox)FindViewById(Resource.Id.cBoxSat);
+                        ToggleButton cbSat = (ToggleButton)FindViewById(Resource.Id.cBoxSat);
                         cbSat.Checked = true;
                         break;
                 }
             }
 
-            Button saveBtn = FindViewById<Button>(Resource.Id.btnSaveAlarm);
+            ImageButton saveBtn = FindViewById<ImageButton>(Resource.Id.btnSaveAlarm);
             saveBtn.Click += SaveBtn_Click;
 
-            Button cancelBtn = FindViewById<Button>(Resource.Id.btnCancelEditAlarm);
+            ImageButton cancelBtn = FindViewById<ImageButton>(Resource.Id.btnCancelEditAlarm);
             cancelBtn.Click += (object sender, EventArgs e) =>
             {
                 Finish();
@@ -114,8 +129,15 @@ namespace CustomListView
 
         private void AlarmTime_Click(object sender, EventArgs e)
         {
+            hideSoftKeyboard();
             TimePickerDialog tpd = new TimePickerDialog(this, tdpCallback, DateTime.Now.Hour, DateTime.Now.Minute, false);
             tpd.Show();
+        }
+
+        private void hideSoftKeyboard()
+        {
+            InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+            imm.HideSoftInputFromWindow(alarmName.WindowToken, 0);
         }
 
         private void tdpCallback(object sender, TimePickerDialog.TimeSetEventArgs e)
@@ -140,13 +162,13 @@ namespace CustomListView
 
             List<int> days = new List<int>();
             //get days for alarm
-            if (FindViewById<CheckBox>(Resource.Id.cBoxSun).Checked) days.Add(1);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxMon).Checked) days.Add(2);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxTue).Checked) days.Add(3);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxWed).Checked) days.Add(4);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxThu).Checked) days.Add(5);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxFri).Checked) days.Add(6);
-            if (FindViewById<CheckBox>(Resource.Id.cBoxSat).Checked) days.Add(7);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxSun).Checked) days.Add(1);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxMon).Checked) days.Add(2);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxTue).Checked) days.Add(3);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxWed).Checked) days.Add(4);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxThu).Checked) days.Add(5);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxFri).Checked) days.Add(6);
+            if (FindViewById<ToggleButton>(Resource.Id.cBoxSat).Checked) days.Add(7);
             alarmToEdit.AlarmDays = days;
 
             if (days.Count == 0)

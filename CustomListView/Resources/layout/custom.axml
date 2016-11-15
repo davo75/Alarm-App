@@ -2,36 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#FFDAFF7F"
+    android:background="@drawable/rounded_box"
     android:padding="8dp"
     android:descendantFocusability="blocksDescendants">
-    <LinearLayout
-        android:id="@+id/Text"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/txtAlarmName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dip">
-        <TextView
-            android:id="@+id/Text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#FF7F3300"
-            android:textSize="20dip"
-            android:textStyle="italic" />
-        <TextView
-            android:id="@+id/Text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dip"
-            android:textColor="#FF267F00"
-            android:paddingLeft="100dip" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Text3"
-            android:textColor="#FF267F00"
-            android:textSize="14dip" />
-    </LinearLayout>
+        android:textColor="#FFA4A5A4"
+        android:textSize="18sp"
+        android:text="Wake Up"
+        android:layout_toRightOf="@id/txtAlarmTime"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp" />
+    <TextView
+        android:id="@+id/txtAlarmTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:textColor="#FFFAFAF9"
+        android:text="07:30"
+        android:layout_marginLeft="20dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAlarmDays"
+        android:textColor="#FFA4A5A4"
+        android:textSize="12dp"
+        android:text="MON TUE WED THU"
+        android:layout_below="@id/txtAlarmTime"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="-4dp" />
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

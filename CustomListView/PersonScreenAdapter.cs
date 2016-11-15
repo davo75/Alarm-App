@@ -55,18 +55,27 @@ namespace CustomListView
                 view = context.LayoutInflater.Inflate(Resource.Layout.custom, null);
             }
 
-            view.FindViewById<TextView>(Resource.Id.Text1).Text = string.Format("{0}", item.AlarmName);
-            view.FindViewById<TextView>(Resource.Id.Text2).Text = string.Format("{0}", item.AlarmTime);
+            //string alarmLabel = item.AlarmName.ToString();
+
+            //if(alarmLabel.Length > 15)
+            //{
+            //    alarmLabel = alarmLabel.Substring(0, 14);
+            //    alarmLabel += "...";
+            //}
+
+            view.FindViewById<TextView>(Resource.Id.txtAlarmName).Text = item.AlarmName.ToString();
+            view.FindViewById<TextView>(Resource.Id.txtAlarmTime).Text = item.AlarmTime.ToString(@"hh\:mm");
 
             //format the alarm days from integers to days of the week
             var days = "";
             if (item.AlarmDays.Count > 0 && item.AlarmDays[0] != 0)
             {
-                days = string.Join(" ",
-                     from g in (string.Join(",", item.AlarmDays)).Split(new char[] { ',' })
-                     select Enum.GetName(typeof(DayOfWeek), ((Convert.ToInt32(g) - 1) % 7)));
+                //days = string.Join(" ",
+                //     from g in (string.Join(",", item.AlarmDays)).Split(new char[] { ',' })
+                //     select Enum.GetName(typeof(DayOfWeek), ((Convert.ToInt32(g) - 1) % 7)));
+                days = getDays(item.AlarmDays);
             }
-            view.FindViewById<TextView>(Resource.Id.Text3).Text = string.Format("{0}", days);
+            view.FindViewById<TextView>(Resource.Id.txtAlarmDays).Text = days;
             Switch alarmSwitch = view.FindViewById<Switch>(Resource.Id.alarmActive);
             alarmSwitch.Checked = item.AlarmActive;
 
@@ -97,6 +106,42 @@ namespace CustomListView
                 return view;
         }
 
-       
+        private string getDays(List<int> dayValues)
+        {
+            string days = "";
+
+            foreach (var item in dayValues)
+            {
+                switch (item)
+                {
+
+                    case 1:
+                        days += "SUN";
+                        break;
+                    case 2:
+                        days += "MON";
+                        break;
+                    case 3:
+                        days += "TUE";
+                        break;
+                    case 4:
+                        days += "WED";
+                        break;
+                    case 5:
+                        days += "THU";
+                        break;
+                    case 6:
+                        days += "FRI";
+                        break;
+                    case 7:
+                        days += "SAT";
+                        break;
+                }
+                days += " ";
+            }
+            return days;
+        }
+
+
     }
 }

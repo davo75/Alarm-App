@@ -63,14 +63,17 @@ namespace CustomListView
 			// aapt resource value: 0x7f040000
 			public const int my_blue = 2130968576;
 			
-			// aapt resource value: 0x7f040003
-			public const int my_gray = 2130968579;
-			
 			// aapt resource value: 0x7f040001
-			public const int my_green = 2130968577;
+			public const int my_dark_blue = 2130968577;
+			
+			// aapt resource value: 0x7f040004
+			public const int my_green = 2130968580;
 			
 			// aapt resource value: 0x7f040002
-			public const int my_purple = 2130968578;
+			public const int my_grey = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int my_light_blue = 2130968579;
 			
 			static Color()
 			{
@@ -86,16 +89,76 @@ namespace CustomListView
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int button_save_style = 2130837504;
+			public const int button_anim = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int edit_text_style = 2130837505;
+			public const int button_save_style = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int button_style = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int rounded_edit_text = 2130837507;
+			public const int circle_button_alarm = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int circle_button_reminder = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int edit_text_style = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int ic_account_circle_white_18dp = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int ic_alarm_add_white_48dp = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int ic_alarm_blue = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int ic_alarm_off_white_48dp = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int ic_alarm_on_white_24dp = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int ic_alarm_white_48dp = 2130837515;
+			
+			// aapt resource value: 0x7f02000c
+			public const int ic_cancel_white_48dp = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int ic_date_range_white_24dp = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int ic_history_white_24dp = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int ic_label_outline_white_24dp = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int ic_notifications_none_white_24dp = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int ic_schedule_white_48dp = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int Icon = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int italy = 2130837523;
+			
+			// aapt resource value: 0x7f020014
+			public const int round_toggle = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int rounded_box = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int rounded_edit_text = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int save_blue = 2130837527;
 			
 			static Drawable()
 			{
@@ -110,86 +173,104 @@ namespace CustomListView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f080018
-			public const int Heading = 2131230744;
+			// aapt resource value: 0x7f09001f
+			public const int List = 2131296287;
 			
-			// aapt resource value: 0x7f08001a
-			public const int List = 2131230746;
+			// aapt resource value: 0x7f090017
+			public const int alaramTime = 2131296279;
 			
-			// aapt resource value: 0x7f080012
-			public const int Text = 2131230738;
+			// aapt resource value: 0x7f09001b
+			public const int alarmActive = 2131296283;
 			
-			// aapt resource value: 0x7f080013
-			public const int Text1 = 2131230739;
+			// aapt resource value: 0x7f090016
+			public const int alarmName = 2131296278;
 			
-			// aapt resource value: 0x7f080014
-			public const int Text2 = 2131230740;
+			// aapt resource value: 0x7f090020
+			public const int alarm_add = 2131296288;
 			
-			// aapt resource value: 0x7f080015
-			public const int Text3 = 2131230741;
+			// aapt resource value: 0x7f090019
+			public const int btnAlarmOff = 2131296281;
 			
-			// aapt resource value: 0x7f08000f
-			public const int alaramTime = 2131230735;
+			// aapt resource value: 0x7f09000c
+			public const int btnCancelAddAlarm = 2131296268;
 			
-			// aapt resource value: 0x7f080016
-			public const int alarmActive = 2131230742;
+			// aapt resource value: 0x7f09001c
+			public const int btnCancelEditAlarm = 2131296284;
 			
-			// aapt resource value: 0x7f08000e
-			public const int alarmName = 2131230734;
+			// aapt resource value: 0x7f09000b
+			public const int btnSaveAlarm = 2131296267;
 			
-			// aapt resource value: 0x7f08000c
-			public const int btnCancelAddAlarm = 2131230732;
+			// aapt resource value: 0x7f090018
+			public const int button1 = 2131296280;
 			
-			// aapt resource value: 0x7f080017
-			public const int btnCancelEditAlarm = 2131230743;
+			// aapt resource value: 0x7f090008
+			public const int cBoxFri = 2131296264;
 			
-			// aapt resource value: 0x7f08000b
-			public const int btnSaveAlarm = 2131230731;
+			// aapt resource value: 0x7f090004
+			public const int cBoxMon = 2131296260;
 			
-			// aapt resource value: 0x7f080010
-			public const int button1 = 2131230736;
+			// aapt resource value: 0x7f090009
+			public const int cBoxSat = 2131296265;
 			
-			// aapt resource value: 0x7f080019
-			public const int button2 = 2131230745;
+			// aapt resource value: 0x7f09000a
+			public const int cBoxSun = 2131296266;
 			
-			// aapt resource value: 0x7f080008
-			public const int cBoxFri = 2131230728;
+			// aapt resource value: 0x7f090007
+			public const int cBoxThu = 2131296263;
 			
-			// aapt resource value: 0x7f080004
-			public const int cBoxMon = 2131230724;
+			// aapt resource value: 0x7f090005
+			public const int cBoxTue = 2131296261;
 			
-			// aapt resource value: 0x7f080009
-			public const int cBoxSat = 2131230729;
+			// aapt resource value: 0x7f090006
+			public const int cBoxWed = 2131296262;
 			
-			// aapt resource value: 0x7f08000a
-			public const int cBoxSun = 2131230730;
+			// aapt resource value: 0x7f090010
+			public const int edit_toolbar = 2131296272;
 			
-			// aapt resource value: 0x7f080007
-			public const int cBoxThu = 2131230727;
+			// aapt resource value: 0x7f09000f
+			public const int footer = 2131296271;
 			
-			// aapt resource value: 0x7f080005
-			public const int cBoxTue = 2131230725;
+			// aapt resource value: 0x7f09000d
+			public const int header = 2131296269;
 			
-			// aapt resource value: 0x7f080006
-			public const int cBoxWed = 2131230726;
+			// aapt resource value: 0x7f09001d
+			public const int imageButton1 = 2131296285;
 			
-			// aapt resource value: 0x7f08000d
-			public const int relativeLayout1 = 2131230733;
+			// aapt resource value: 0x7f09001e
+			public const int imageButton2 = 2131296286;
 			
-			// aapt resource value: 0x7f080002
-			public const int reminderList = 2131230722;
+			// aapt resource value: 0x7f090013
+			public const int imageView1 = 2131296275;
 			
-			// aapt resource value: 0x7f080011
-			public const int stopAlarm = 2131230737;
+			// aapt resource value: 0x7f090012
+			public const int linearLayout1 = 2131296274;
 			
-			// aapt resource value: 0x7f080000
-			public const int txtAlarmName = 2131230720;
+			// aapt resource value: 0x7f090015
+			public const int relativeLayout1 = 2131296277;
 			
-			// aapt resource value: 0x7f080003
-			public const int txtAlarmTime = 2131230723;
+			// aapt resource value: 0x7f090002
+			public const int reminderList = 2131296258;
 			
-			// aapt resource value: 0x7f080001
-			public const int txtReminder = 2131230721;
+			// aapt resource value: 0x7f090011
+			public const int scrollView1 = 2131296273;
+			
+			// aapt resource value: 0x7f09000e
+			public const int toolbar = 2131296270;
+			
+			// aapt resource value: 0x7f09001a
+			public const int txtAlarmDays = 2131296282;
+			
+			// aapt resource value: 0x7f090000
+			public const int txtAlarmName = 2131296256;
+			
+			// aapt resource value: 0x7f090014
+			public const int txtAlarmSound = 2131296276;
+			
+			// aapt resource value: 0x7f090003
+			public const int txtAlarmTime = 2131296259;
+			
+			// aapt resource value: 0x7f090001
+			public const int txtReminder = 2131296257;
 			
 			static Id()
 			{
@@ -208,19 +289,34 @@ namespace CustomListView
 			public const int AddAlarm = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int AddAlarmFrag = 2130903041;
+			public const int AddAlarm2 = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int alarm = 2130903042;
+			public const int AddAlarmFrag = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int custom = 2130903043;
+			public const int alarm = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int EditAlarm = 2130903044;
+			public const int custom = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int Main = 2130903045;
+			public const int EditAlarm = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int EditAlarm2 = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int Main = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int reminder = 2130903048;
+			
+			// aapt resource value: 0x7f030009
+			public const int spinner_layout = 2130903049;
+			
+			// aapt resource value: 0x7f03000a
+			public const int toolbar = 2130903050;
 			
 			static Layout()
 			{
@@ -232,17 +328,39 @@ namespace CustomListView
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f080000
+			public const int top_menu = 2131230720;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int ApplicationName = 2131034113;
-			
-			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
+			// aapt resource value: 0x7f050003
+			public const int ApplicationName = 2131034115;
 			
 			// aapt resource value: 0x7f050002
-			public const int reminder_prompt = 2131034114;
+			public const int Login = 2131034114;
+			
+			// aapt resource value: 0x7f050001
+			public const int Password = 2131034113;
+			
+			// aapt resource value: 0x7f050000
+			public const int Username = 2131034112;
+			
+			// aapt resource value: 0x7f050004
+			public const int reminder_prompt = 2131034116;
 			
 			static String()
 			{
