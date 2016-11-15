@@ -1,15 +1,6 @@
-﻿<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <item android:state_pressed="false">
-    <layer-list>
-      <item android:right="5dp" android:top="5dp">
-        <shape>
-          <solid android:color="#D918435a"/>
-          <corners android:radius="45dp"/>
-        </shape>
-      </item>
-    </layer-list>
-
-  </item>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+  <item android:state_pressed="true" android:drawable="@drawable/button_selected"/>
+  <item android:state_focused="true" android:drawable="@drawable/button_selected"/>
+  <item android:drawable="@drawable/button_normal"/>
 </selector>

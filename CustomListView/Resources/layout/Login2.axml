@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/italy">
+    <ImageView
+        android:src="@drawable/ic_alarm_blue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView1"
+        android:layout_marginTop="120dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/editText1"
+        android:background="@drawable/rounded_box"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_account_circle_white_18dp"
+        android:paddingLeft="20dp"
+        android:drawablePadding="15dp"
+        android:layout_marginTop="80dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/editText2"
+        android:background="@drawable/rounded_box"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:drawableLeft="@drawable/ic_lock_white_18dp"
+        android:paddingLeft="20dp"
+        android:drawablePadding="15dp" />
+    <Button
+        android:text="Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/button1"
+        android:background="@drawable/button_style"
+        android:textColor="#fff"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
+</LinearLayout>

@@ -35,17 +35,32 @@
     </Toolbar>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/edit_toolbar"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp">
-        <ListView
-            android:id="@+id/List"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:cacheColorHint="#FFDAFF7F"
-            android:dividerHeight="20dp" />
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_marginTop="40dp">
+        <TextView
+            android:text="Reminder"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/txtAlarmTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:textSize="45sp"
+            android:textStyle="bold"
+            android:textColor="#fff" />
+        <TextView
+            android:text="Wake Up"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/txtAlarmName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#90551b"
+            android:textStyle="bold"
+            android:textSize="30sp" />
     </LinearLayout>
 </RelativeLayout>

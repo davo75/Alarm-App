@@ -15,7 +15,7 @@ using System.Data;
 
 namespace CustomListView
 {
-    [Activity(Label = "CustomListView", MainLauncher = true, ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
+    [Activity(Label = "CustomListView", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
        
@@ -25,14 +25,14 @@ namespace CustomListView
 
         AlarmManager mgr;
 
-        
+        private string username;
 
-        protected override void OnCreate(Bundle bundle)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(bundle);
+            base.OnCreate(savedInstanceState);
 
-           // this.RequestWindowFeature(WindowFeatures.NoTitle);
-           // this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            // this.RequestWindowFeature(WindowFeatures.NoTitle);
+            // this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
             //add the toolbar
@@ -40,9 +40,12 @@ namespace CustomListView
             SetActionBar(toolbar);
             ActionBar.Title = "My Alarms";
 
-            //button for adding a new alarm
-            //Button btnAdd = FindViewById<Button>(Resource.Id.button2);
-            //btnAdd.Click += BtnAdd_Click;
+            //get the username
+            username = Intent.GetStringExtra("Username");
+
+            //button for navigating to next alarm screen
+            ImageButton nextAlarm = FindViewById<ImageButton>(Resource.Id.btnNextAlarm);
+            nextAlarm.Click += NextAlarm_Click;  
 
             listView = FindViewById<ListView>(Resource.Id.List);
 
@@ -51,6 +54,19 @@ namespace CustomListView
             
 
             Toast.MakeText(this, "OnCreate", ToastLength.Short).Show();
+        }
+
+        private void NextAlarm_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(NextAlarm));
+            StartActivity(intent);
+        }
+
+        private Alarm getNextAlarm()
+        {
+            Alarm nextAlarm = null;
+
+            return nextAlarm;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -434,7 +450,7 @@ namespace CustomListView
             if (NetworkInterface.GetIsNetworkAvailable())
             {
                 Service1 client = new Service1();
-                client.ListAlarmsAsync("dave");
+                client.ListAlarmsAsync(username);
 
                 client.ListAlarmsCompleted += (object sender, ListAlarmsCompletedEventArgs e) =>
                 {
