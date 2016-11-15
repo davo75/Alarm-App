@@ -191,14 +191,16 @@
                     android:textColor="#fff" />
             </LinearLayout>
             <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
                 android:id="@+id/reminderList"
-                android:layout_marginRight="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginBottom="15dp"
-                android:paddingLeft="20dp"
-                android:popupBackground="@android:color/background_light" />
+                android:popupBackground="#051f36"
+                
+                />
             <EditText
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="match_parent"

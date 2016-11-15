@@ -190,15 +190,16 @@
             android:layout_marginLeft="10dp"
             android:textColor="#fff" />
       </LinearLayout>
-      <Spinner
-          android:layout_width="match_parent"
-          android:layout_height="60dp"
-          android:id="@+id/reminderList"
-          android:layout_marginRight="20dp"
-          android:layout_marginLeft="20dp"
-          android:layout_marginBottom="15dp"
-          android:paddingLeft="20dp"
-          android:popupBackground="@android:color/background_light" />
+       <Spinner
+       android:id="@+id/reminderList"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+      android:popupBackground="#051f36"
+       android:background="@null"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:layout_marginBottom="15dp"
+        />
       <EditText
           android:textAppearance="?android:attr/textAppearanceMedium"
           android:layout_width="match_parent"

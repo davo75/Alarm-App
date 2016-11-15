@@ -54,9 +54,9 @@ namespace CustomListView
             alarmReminderSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(alarmReminderSpinner_ItemSelected);
 
             var adapter = ArrayAdapter.CreateFromResource(
-                this, Resource.Array.reminder_array, Resource.Layout.spinner_layout);
+                this, Resource.Array.reminder_array, Resource.Drawable.spinner_style);
 
-            //adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            adapter.SetDropDownViewResource(Resource.Drawable.spinner_item_style);
             alarmReminderSpinner.Adapter = adapter;
 
             //var adapter = ArrayAdapter.CreateFromResource(

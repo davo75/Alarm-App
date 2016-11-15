@@ -1,8 +1,0 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_width="match_parent"
-                android:layout_height="60dp" 
-                android:background="@drawable/rounded_box"     
-                android:textColor="#777"
-                android:drawableLeft="@drawable/ic_history_white_24dp"
-                android:drawablePadding="10dp"  />

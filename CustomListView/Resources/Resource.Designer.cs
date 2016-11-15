@@ -172,6 +172,12 @@ namespace CustomListView
 			// aapt resource value: 0x7f02001b
 			public const int save_blue = 2130837531;
 			
+			// aapt resource value: 0x7f02001c
+			public const int spinner_item_style = 2130837532;
+			
+			// aapt resource value: 0x7f02001d
+			public const int spinner_style = 2130837533;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -358,10 +364,7 @@ namespace CustomListView
 			public const int reminder = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int spinner_layout = 2130903052;
-			
-			// aapt resource value: 0x7f03000d
-			public const int toolbar = 2130903053;
+			public const int toolbar = 2130903052;
 			
 			static Layout()
 			{
