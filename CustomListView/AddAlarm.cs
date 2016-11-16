@@ -14,10 +14,12 @@ using System.Net.NetworkInformation;
 using CustomListView.au.edu.wa.central.mydesign.student;
 using Android.Graphics;
 using Android.Views.InputMethods;
+using Android.Media;
+using Android.Content.PM;
 
 namespace CustomListView
 {
-    [Activity(Label = "AddAlarm", WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
+    [Activity(Label = "AddAlarm", ScreenOrientation = ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
     public class AddAlarm : Activity
     {
         EditText alarmName;
@@ -26,6 +28,8 @@ namespace CustomListView
         TimeSpan timeOfAlarm;
         EditText alarmSound;
         Spinner alarmReminderSpinner;
+        Android.Net.Uri uriToRingTone;
+        private string username;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,6 +44,8 @@ namespace CustomListView
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
             ActionBar.Title = "Add Alarm";
+
+            username = Intent.GetStringExtra("Username");
 
             alarmName = FindViewById<EditText>(Resource.Id.txtAlarmName);
             alarmTime = FindViewById<EditText>(Resource.Id.txtAlarmTime);
@@ -64,6 +70,8 @@ namespace CustomListView
 
             alarmTime.Click += AlarmTime_Click;
 
+            alarmSound.Click += AlarmSound_Click;
+
             //alarmReminder.Click += AlarmReminder_Click;
 
             ImageButton saveBtn = FindViewById<ImageButton>(Resource.Id.btnSaveAlarm);
@@ -76,6 +84,28 @@ namespace CustomListView
             };
         }
 
+        private void AlarmSound_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(RingtoneManager.ActionRingtonePicker);
+            this.StartActivityForResult(intent, 3);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 3)
+            {
+                uriToRingTone = (Android.Net.Uri)data.GetParcelableExtra(RingtoneManager.ExtraRingtonePickedUri);
+                string alarmTitle = RingtoneManager.GetRingtone(this, uriToRingTone).GetTitle(this);
+                if (uriToRingTone != null)
+                {
+                    // RingtoneManager.SetActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
+                    alarmSound.Text = alarmTitle;
+                    Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
+                }
+            }
+        }
         //private void AlarmReminder_Click(object sender, EventArgs e)
         //{
         //    alarmReminderSpinner.PerformClick();
@@ -142,7 +172,13 @@ namespace CustomListView
 
                 string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
 
-                client.AddNewAlarmAsync("dave", alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), daysSelected);
+                string alarmSound = null;
+                if (uriToRingTone != null)
+                {
+                    alarmSound = uriToRingTone.ToString();
+                }
+
+                client.AddNewAlarmAsync(username, alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), alarmSound, daysSelected);
 
                 client.AddNewAlarmCompleted += (object sender1, AddNewAlarmCompletedEventArgs e1) =>
                 {
@@ -153,8 +189,9 @@ namespace CustomListView
                         AlarmName = alarmName.Text,
                         AlarmTime = timeOfAlarm,
                         AlarmActive = true,
-                        AlarmReminder = int.Parse(alarmReminderSpinner.SelectedItem.ToString()),
-                        AlarmDays = days
+                        AlarmReminder = int.Parse(alarmReminderSpinner.SelectedItem.ToString().Substring(0, reminderTime.Length - 4)),
+                        AlarmDays = days,
+                        AlarmSound = alarmSound
                     };
 
                     //pass the intent the alarm object via JSON

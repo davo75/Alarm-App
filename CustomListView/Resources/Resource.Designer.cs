@@ -194,23 +194,23 @@ namespace CustomListView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f090024
-			public const int List = 2131296292;
+			// aapt resource value: 0x7f09002b
+			public const int List = 2131296299;
 			
 			// aapt resource value: 0x7f090017
 			public const int alaramTime = 2131296279;
 			
-			// aapt resource value: 0x7f09001b
-			public const int alarmActive = 2131296283;
+			// aapt resource value: 0x7f090022
+			public const int alarmActive = 2131296290;
 			
 			// aapt resource value: 0x7f090016
 			public const int alarmName = 2131296278;
 			
-			// aapt resource value: 0x7f090028
-			public const int alarm_add = 2131296296;
+			// aapt resource value: 0x7f09002f
+			public const int alarm_add = 2131296303;
 			
-			// aapt resource value: 0x7f090023
-			public const int btnAlarmList = 2131296291;
+			// aapt resource value: 0x7f09002a
+			public const int btnAlarmList = 2131296298;
 			
 			// aapt resource value: 0x7f090019
 			public const int btnAlarmOff = 2131296281;
@@ -218,14 +218,17 @@ namespace CustomListView
 			// aapt resource value: 0x7f09000c
 			public const int btnCancelAddAlarm = 2131296268;
 			
-			// aapt resource value: 0x7f09001c
-			public const int btnCancelEditAlarm = 2131296284;
+			// aapt resource value: 0x7f090023
+			public const int btnCancelEditAlarm = 2131296291;
 			
-			// aapt resource value: 0x7f09001f
-			public const int btnLogin = 2131296287;
+			// aapt resource value: 0x7f09001e
+			public const int btnCreateUser = 2131296286;
 			
-			// aapt resource value: 0x7f090022
-			public const int btnNextAlarm = 2131296290;
+			// aapt resource value: 0x7f090026
+			public const int btnLogin = 2131296294;
+			
+			// aapt resource value: 0x7f090029
+			public const int btnNextAlarm = 2131296297;
 			
 			// aapt resource value: 0x7f09000b
 			public const int btnSaveAlarm = 2131296267;
@@ -254,17 +257,17 @@ namespace CustomListView
 			// aapt resource value: 0x7f090006
 			public const int cBoxWed = 2131296262;
 			
-			// aapt resource value: 0x7f09001e
-			public const int editPassword = 2131296286;
+			// aapt resource value: 0x7f090025
+			public const int editPassword = 2131296293;
 			
-			// aapt resource value: 0x7f090020
-			public const int editText1 = 2131296288;
+			// aapt resource value: 0x7f090027
+			public const int editText1 = 2131296295;
 			
-			// aapt resource value: 0x7f090021
-			public const int editText2 = 2131296289;
+			// aapt resource value: 0x7f090028
+			public const int editText2 = 2131296296;
 			
-			// aapt resource value: 0x7f09001d
-			public const int editUsername = 2131296285;
+			// aapt resource value: 0x7f090024
+			public const int editUsername = 2131296292;
 			
 			// aapt resource value: 0x7f090010
 			public const int edit_toolbar = 2131296272;
@@ -278,8 +281,8 @@ namespace CustomListView
 			// aapt resource value: 0x7f090013
 			public const int imageView1 = 2131296275;
 			
-			// aapt resource value: 0x7f090025
-			public const int imgAlarmIcon = 2131296293;
+			// aapt resource value: 0x7f09002c
+			public const int imgAlarmIcon = 2131296300;
 			
 			// aapt resource value: 0x7f090012
 			public const int linearLayout1 = 2131296274;
@@ -296,8 +299,8 @@ namespace CustomListView
 			// aapt resource value: 0x7f09000e
 			public const int toolbar = 2131296270;
 			
-			// aapt resource value: 0x7f09001a
-			public const int txtAlarmDays = 2131296282;
+			// aapt resource value: 0x7f090021
+			public const int txtAlarmDays = 2131296289;
 			
 			// aapt resource value: 0x7f090000
 			public const int txtAlarmName = 2131296256;
@@ -308,14 +311,32 @@ namespace CustomListView
 			// aapt resource value: 0x7f090003
 			public const int txtAlarmTime = 2131296259;
 			
-			// aapt resource value: 0x7f090027
-			public const int txtRemaining = 2131296295;
+			// aapt resource value: 0x7f09001d
+			public const int txtConfirmPassword = 2131296285;
 			
-			// aapt resource value: 0x7f090026
-			public const int txtRemainingTime = 2131296294;
+			// aapt resource value: 0x7f09001f
+			public const int txtCreateLink = 2131296287;
+			
+			// aapt resource value: 0x7f09001a
+			public const int txtCreateTitle = 2131296282;
+			
+			// aapt resource value: 0x7f090020
+			public const int txtHelpLink = 2131296288;
+			
+			// aapt resource value: 0x7f09001c
+			public const int txtPassword = 2131296284;
+			
+			// aapt resource value: 0x7f09002e
+			public const int txtRemaining = 2131296302;
+			
+			// aapt resource value: 0x7f09002d
+			public const int txtRemainingTime = 2131296301;
 			
 			// aapt resource value: 0x7f090001
 			public const int txtReminder = 2131296257;
+			
+			// aapt resource value: 0x7f09001b
+			public const int txtUsername = 2131296283;
 			
 			static Id()
 			{
@@ -343,31 +364,34 @@ namespace CustomListView
 			public const int alarm = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int custom = 2130903044;
+			public const int CreateUser = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int EditAlarm = 2130903045;
+			public const int custom = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int EditAlarm2 = 2130903046;
+			public const int EditAlarm = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int Login = 2130903047;
+			public const int EditAlarm2 = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int Login2 = 2130903048;
+			public const int Login = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int Main = 2130903049;
+			public const int Login2 = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int NextAlarm = 2130903050;
+			public const int Main = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int reminder = 2130903051;
+			public const int NextAlarm = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int toolbar = 2130903052;
+			public const int reminder = 2130903052;
+			
+			// aapt resource value: 0x7f03000d
+			public const int toolbar = 2130903053;
 			
 			static Layout()
 			{

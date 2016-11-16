@@ -13,5 +13,6 @@ namespace CustomListView
         public int AlarmReminder { get; set; }
         public int ReminderState { get; set; }
         public List<int> AlarmDays { get; set; }
+        public string AlarmSound { get; set; }
     }
 } 

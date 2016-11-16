@@ -24,11 +24,13 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="BasicHttpBinding_IService1", Namespace="http://tempuri.org/")]
     public partial class Service1 : System.Web.Services.Protocols.SoapHttpClientProtocol {
+        
+        private System.Threading.SendOrPostCallback CreateUserOperationCompleted;
         
         private System.Threading.SendOrPostCallback ListAlarmsOperationCompleted;
         
@@ -82,6 +84,9 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
         }
         
         /// <remarks/>
+        public event CreateUserCompletedEventHandler CreateUserCompleted;
+        
+        /// <remarks/>
         public event ListAlarmsCompletedEventHandler ListAlarmsCompleted;
         
         /// <remarks/>
@@ -98,6 +103,37 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
         
         /// <remarks/>
         public event DeleteAlarmCompletedEventHandler DeleteAlarmCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService1/CreateUser", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateUser(string username, string password) {
+            object[] results = this.Invoke("CreateUser", new object[] {
+                        username,
+                        password});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateUserAsync(string username, string password) {
+            this.CreateUserAsync(username, password, null);
+        }
+        
+        /// <remarks/>
+        public void CreateUserAsync(string username, string password, object userState) {
+            if ((this.CreateUserOperationCompleted == null)) {
+                this.CreateUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateUserOperationCompleted);
+            }
+            this.InvokeAsync("CreateUser", new object[] {
+                        username,
+                        password}, this.CreateUserOperationCompleted, userState);
+        }
+        
+        private void OnCreateUserOperationCompleted(object arg) {
+            if ((this.CreateUserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateUserCompleted(this, new CreateUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService1/ListAlarms", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -161,24 +197,25 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService1/AddNewAlarm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int AddNewAlarm(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days) {
+        public int AddNewAlarm(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days) {
             object[] results = this.Invoke("AddNewAlarm", new object[] {
                         username,
                         alarmName,
                         alarmTime,
                         alarmActive,
                         alarmReminder,
+                        alarmSound,
                         days});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void AddNewAlarmAsync(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days) {
-            this.AddNewAlarmAsync(username, alarmName, alarmTime, alarmActive, alarmReminder, days, null);
+        public void AddNewAlarmAsync(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days) {
+            this.AddNewAlarmAsync(username, alarmName, alarmTime, alarmActive, alarmReminder, alarmSound, days, null);
         }
         
         /// <remarks/>
-        public void AddNewAlarmAsync(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days, object userState) {
+        public void AddNewAlarmAsync(string username, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days, object userState) {
             if ((this.AddNewAlarmOperationCompleted == null)) {
                 this.AddNewAlarmOperationCompleted = new System.Threading.SendOrPostCallback(this.OnAddNewAlarmOperationCompleted);
             }
@@ -188,6 +225,7 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
                         alarmTime,
                         alarmActive,
                         alarmReminder,
+                        alarmSound,
                         days}, this.AddNewAlarmOperationCompleted, userState);
         }
         
@@ -200,24 +238,25 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/IService1/UpdateAlarm", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int UpdateAlarm(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days) {
+        public int UpdateAlarm(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days) {
             object[] results = this.Invoke("UpdateAlarm", new object[] {
                         alarmID,
                         alarmName,
                         alarmTime,
                         alarmActive,
                         alarmReminder,
+                        alarmSound,
                         days});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void UpdateAlarmAsync(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days) {
-            this.UpdateAlarmAsync(alarmID, alarmName, alarmTime, alarmActive, alarmReminder, days, null);
+        public void UpdateAlarmAsync(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days) {
+            this.UpdateAlarmAsync(alarmID, alarmName, alarmTime, alarmActive, alarmReminder, alarmSound, days, null);
         }
         
         /// <remarks/>
-        public void UpdateAlarmAsync(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, int[] days, object userState) {
+        public void UpdateAlarmAsync(int alarmID, string alarmName, string alarmTime, string alarmActive, int alarmReminder, string alarmSound, int[] days, object userState) {
             if ((this.UpdateAlarmOperationCompleted == null)) {
                 this.UpdateAlarmOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUpdateAlarmOperationCompleted);
             }
@@ -227,6 +266,7 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
                         alarmTime,
                         alarmActive,
                         alarmReminder,
+                        alarmSound,
                         days}, this.UpdateAlarmOperationCompleted, userState);
         }
         
@@ -317,11 +357,37 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void CreateUserCompletedEventHandler(object sender, CreateUserCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void ListAlarmsCompletedEventHandler(object sender, ListAlarmsCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ListAlarmsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -343,11 +409,11 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void CheckPasswordCompletedEventHandler(object sender, CheckPasswordCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class CheckPasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -369,11 +435,11 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void AddNewAlarmCompletedEventHandler(object sender, AddNewAlarmCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class AddNewAlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -395,11 +461,11 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void UpdateAlarmCompletedEventHandler(object sender, UpdateAlarmCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class UpdateAlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -421,11 +487,11 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void ToggleAlarmCompletedEventHandler(object sender, ToggleAlarmCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ToggleAlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -447,11 +513,11 @@ namespace CustomListView.au.edu.wa.central.mydesign.student {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void DeleteAlarmCompletedEventHandler(object sender, DeleteAlarmCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class DeleteAlarmCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

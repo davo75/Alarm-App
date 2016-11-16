@@ -23,6 +23,7 @@ namespace CustomListView
         string username;
         bool reminder;
         Animation fadeIn;
+        Android.Net.Uri ringTonePath;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -32,6 +33,15 @@ namespace CustomListView
             username = Intent.GetStringExtra("Username");
             string alarmName = Intent.GetStringExtra("AlarmName");
             string alarmTime = Intent.GetStringExtra("AlarmTime");
+            string alarmSound = Intent.GetStringExtra("AlarmSound");
+
+            if (alarmSound != null)
+            {
+                ringTonePath = Android.Net.Uri.Parse(alarmSound);
+            } else
+            {
+                ringTonePath = null;
+            }
 
             //check if this is the reminder alarm
             reminder = Intent.GetBooleanExtra("Reminder", false);
@@ -126,13 +136,18 @@ namespace CustomListView
 
         private Android.Net.Uri getAlarmUri()
         {
-            Android.Net.Uri alert = RingtoneManager.GetDefaultUri(RingtoneType.Alarm);
+            Android.Net.Uri alert = ringTonePath;
+
             if (alert == null)
             {
-                alert = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+                alert = RingtoneManager.GetDefaultUri(RingtoneType.Alarm);
                 if (alert == null)
                 {
-                    alert = RingtoneManager.GetDefaultUri(RingtoneType.Ringtone);
+                    alert = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
+                    if (alert == null)
+                    {
+                        alert = RingtoneManager.GetDefaultUri(RingtoneType.Ringtone);
+                    }
                 }
             }
             return alert;

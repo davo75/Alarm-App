@@ -18,8 +18,9 @@ namespace CustomListView
     [Activity(Label = "CustomListView", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-       
-        List<Alarm> alarms;
+
+
+    List<Alarm> alarms;
         ListView listView;
         PeopleScreenAdapter psa;
 
@@ -128,6 +129,7 @@ namespace CustomListView
             //    ToastLength.Short).Show();
             //show the AddALarm activity
             Intent i = new Intent(this, typeof(AddAlarm));
+            i.PutExtra("Username", username);
             StartActivityForResult(i, 1);
             return base.OnOptionsItemSelected(item);
         }
@@ -159,7 +161,7 @@ namespace CustomListView
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                Service1 client = new Service1();
+                au.edu.wa.central.mydesign.student.Service1 client = new au.edu.wa.central.mydesign.student.Service1();
                 client.DeleteAlarmAsync(alarmID);
 
                 client.DeleteAlarmCompleted += (object sender, DeleteAlarmCompletedEventArgs e) =>
@@ -309,7 +311,7 @@ namespace CustomListView
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                Service1 client = new Service1();
+                au.edu.wa.central.mydesign.student.Service1 client = new au.edu.wa.central.mydesign.student.Service1();
                 client.ToggleAlarmAsync(alarmID, "y");
 
                 client.ToggleAlarmCompleted += (object sender, ToggleAlarmCompletedEventArgs e) =>
@@ -340,7 +342,7 @@ namespace CustomListView
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                Service1 client = new Service1();
+                au.edu.wa.central.mydesign.student.Service1 client = new au.edu.wa.central.mydesign.student.Service1();
                 client.ToggleAlarmAsync(alarmID, "n");
 
                 client.ToggleAlarmCompleted += (object sender, ToggleAlarmCompletedEventArgs e) =>
@@ -389,6 +391,7 @@ namespace CustomListView
             intent.PutExtra("AlarmID", code);
             intent.PutExtra("AlarmName", alarmToSet.AlarmName);
             intent.PutExtra("AlarmTime", (alarmToSet.AlarmTime).ToString(@"hh\:mm"));
+            intent.PutExtra("AlarmSound", alarmToSet.AlarmSound);
             PendingIntent pendingIntent = PendingIntent.GetActivity(this, code, intent, PendingIntentFlags.CancelCurrent);
 
             mgr = (AlarmManager)GetSystemService(AlarmService);
@@ -420,9 +423,10 @@ namespace CustomListView
                 reminderIntent.PutExtra("AlarmID", code);
                 reminderIntent.PutExtra("AlarmName", alarmToSet.AlarmName);
                 reminderIntent.PutExtra("AlarmTime", (alarmToSet.AlarmTime).ToString(@"hh\:mm"));
+                reminderIntent.PutExtra("AlarmSound", alarmToSet.AlarmSound);
                 PendingIntent pendingIntentReminder = PendingIntent.GetActivity(this, code+1000, reminderIntent, PendingIntentFlags.CancelCurrent);
                 //set the reminder alarm in the alarm manager
-                mgr.SetExact(AlarmType.RtcWakeup, alarmMillis - ((alarmToSet.AlarmReminder-4)*60*1000), pendingIntentReminder);
+                mgr.SetExact(AlarmType.RtcWakeup, alarmMillis - ((alarmToSet.AlarmReminder)*60*1000), pendingIntentReminder);
             }
             
             TimeSpan currentOffset = System.TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now);
@@ -467,7 +471,7 @@ namespace CustomListView
             Toast.MakeText(this, "AlarmID: " + (alarm.AlarmID).ToString(), ToastLength.Short).Show();
 
             //get the alarm object and serialize it so we can pass it to the edit alarm activity
-            Intent i = new Intent(this, typeof(EditAlarm));
+            Intent i = new Intent(this, typeof(EditAlarm));           
             i.PutExtra("Alarm", JsonConvert.SerializeObject(alarm));
             StartActivityForResult(i, 2);
         }
@@ -548,7 +552,8 @@ namespace CustomListView
                             AlarmTime = alarmTimeSpan,
                             AlarmActive = alarmActive,
                             AlarmReminder = int.Parse(dr["AlarmReminder"].ToString()),
-                            AlarmDays = days
+                            AlarmDays = days,
+                            AlarmSound = dr["AlarmSound"].ToString(),
                         };                      
 
                         alarms.Add(alarm);

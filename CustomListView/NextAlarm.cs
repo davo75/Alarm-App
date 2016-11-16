@@ -10,10 +10,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Android.Content.PM;
 
 namespace CustomListView
 {
-    [Activity(Label = "NextAlarm")]
+    [Activity(Label = "NextAlarm", ScreenOrientation = ScreenOrientation.Portrait)]
     public class NextAlarm : Activity
     {
         Alarm alarmToShow;

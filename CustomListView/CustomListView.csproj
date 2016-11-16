@@ -59,6 +59,7 @@
     <Compile Include="AddAlarm.cs" />
     <Compile Include="AddAlarmFrag.cs" />
     <Compile Include="AlarmReceiver.cs" />
+    <Compile Include="CreateUser.cs" />
     <Compile Include="EditAlarm.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="MainActivity.cs" />
@@ -113,6 +114,9 @@
     <AndroidResource Include="Resources\layout\NextAlarm.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\CreateUser.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Web References\au.edu.wa.central.mydesign.student\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -155,24 +159,6 @@
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferenceUrl Include="http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\au.edu.wa.central.mydesign.student\</RelPath>
-      <UpdateFromURL>http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>
-      </CachedAppSettingsObjectName>
-      <CachedSettingsPropName>
-      </CachedSettingsPropName>
-    </WebReferenceUrl>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Web References\au.edu.wa.central.mydesign.student\Service1.disco" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\round_toggle.xml" />
@@ -447,6 +433,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_alarm_blue_48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\au.edu.wa.central.mydesign.student\</RelPath>
+      <UpdateFromURL>http://student.mydesign.central.wa.edu.au/2016CertIV_16/BedtimeWebServiceDP/Service1.svc</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\au.edu.wa.central.mydesign.student\Service1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

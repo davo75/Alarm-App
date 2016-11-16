@@ -198,9 +198,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="15dp"
-                android:popupBackground="#051f36"
-                
-                />
+                android:popupBackground="#051f36" />
             <EditText
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="match_parent"
@@ -217,7 +215,8 @@
                 android:textStyle="normal"
                 android:drawableLeft="@drawable/ic_notifications_none_white_24dp"
                 android:drawablePadding="10dp"
-                android:textColorHint="#999" />
+                android:textColorHint="#999"
+                android:focusableInTouchMode="false" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

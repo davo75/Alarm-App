@@ -9,9 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView1"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="80dp"
         android:scaleX="1.2"
-        android:scaleY="1.2" />
+        android:scaleY="1.2"
+        android:layout_marginBottom="30dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -23,7 +24,7 @@
         android:drawableLeft="@drawable/ic_account_circle_white_18dp"
         android:paddingLeft="20dp"
         android:drawablePadding="15dp"
-        android:layout_marginTop="80dp" />
+        android:layout_marginTop="60dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -44,4 +45,29 @@
         android:textColor="#fff"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout1"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
+        <TextView
+            android:text="Create Account"
+            android:id="@+id/txtCreateLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textColor="#fff" />
+        <TextView
+            android:text="Need Help?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtHelpLink"
+            android:layout_alignParentRight="true"
+            android:textColor="#fff" />
+    </RelativeLayout>
 </LinearLayout>

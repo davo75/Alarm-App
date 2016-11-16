@@ -7,19 +7,20 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:src="@drawable/ic_alarm_blue"
+        <TextView
+            android:text="Create Account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView1"
-            android:layout_marginTop="80dp"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
-            android:layout_marginBottom="30dp" />
+            android:id="@+id/txtCreateTitle"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:layout_marginTop="40dp"
+            android:textColor="#fff" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editUsername"
+            android:id="@+id/txtUsername"
             android:background="@drawable/rounded_box"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -27,14 +28,14 @@
             android:drawableLeft="@drawable/ic_account_circle_white_18dp"
             android:paddingLeft="20dp"
             android:drawablePadding="15dp"
-            android:layout_marginTop="60dp"
-            android:hint="@string/Username"
-            android:textColorHint="@color/my_grey"
-            android:textColor="#fff" />
+            android:layout_marginTop="80dp"
+            android:hint="username"
+            android:textColor="#fff"
+            android:textColorHint="@color/my_grey" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/editPassword"
+            android:id="@+id/txtPassword"
             android:background="@drawable/rounded_box"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -42,15 +43,30 @@
             android:drawableLeft="@drawable/ic_lock_white_18dp"
             android:paddingLeft="20dp"
             android:drawablePadding="15dp"
-            android:hint="@string/Password"
-            android:textColorHint="@color/my_grey"
+            android:hint="password"
+            android:textColor="#fff"
             android:password="true"
-            android:textColor="#fff" />
-        <Button
-            android:text="@string/Login"
+            android:textColorHint="@color/my_grey" />
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/btnLogin"
+            android:id="@+id/txtConfirmPassword"
+            android:background="@drawable/rounded_box"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:drawableLeft="@drawable/ic_lock_white_18dp"
+            android:paddingLeft="20dp"
+            android:drawablePadding="15dp"
+            android:hint="confirm password"
+            android:textColor="#fff"
+            android:password="true"
+            android:textColorHint="@color/my_grey" />
+        <Button
+            android:text="Create Account"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:id="@+id/btnCreateUser"
             android:background="@drawable/button_style"
             android:textColor="#fff"
             android:layout_marginLeft="20dp"

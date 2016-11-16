@@ -12,19 +12,23 @@ using Android.Widget;
 using System.Net.NetworkInformation;
 using CustomListView.au.edu.wa.central.mydesign.student;
 using Android.Views.InputMethods;
+using Android.Media;
+using Android.Content.PM;
 
 namespace CustomListView
 {
-    [Activity(Label = "EditAlarm", WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
+    [Activity(Label = "EditAlarm", ScreenOrientation = ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
     public class EditAlarm : Activity
     {
 
         Alarm alarmToEdit;
         EditText alarmName;
         EditText alarmTime;
-       
+        EditText alarmSound;
         TimeSpan timeOfAlarm;
         Spinner alarmReminderSpinner;
+        Android.Net.Uri uriToRingTone;
+      
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,8 +39,7 @@ namespace CustomListView
             //add the toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Edit Alarm";
-
+            ActionBar.Title = "Edit Alarm";                
 
             alarmToEdit = JsonConvert.DeserializeObject<Alarm>(Intent.GetStringExtra("Alarm"));
 
@@ -48,7 +51,17 @@ namespace CustomListView
 
             alarmTime.Click += AlarmTime_Click;
 
-            
+            alarmSound = FindViewById<EditText>(Resource.Id.txtAlarmSound);
+
+            if (alarmToEdit.AlarmSound != null && alarmToEdit.AlarmSound != "")
+            {
+                alarmSound.Text = RingtoneManager.GetRingtone(this, Android.Net.Uri.Parse(alarmToEdit.AlarmSound)).GetTitle(this);
+            } else
+            {
+                uriToRingTone = null;
+            }
+
+            alarmSound.Click += AlarmSound_Click;
 
             alarmReminderSpinner = FindViewById<Spinner>(Resource.Id.reminderList);
             alarmReminderSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(alarmReminderSpinner_ItemSelected);
@@ -114,6 +127,29 @@ namespace CustomListView
 
         }
 
+        private void AlarmSound_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(RingtoneManager.ActionRingtonePicker);
+            this.StartActivityForResult(intent, 3);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (requestCode == 3)
+            {
+                uriToRingTone = (Android.Net.Uri)data.GetParcelableExtra(RingtoneManager.ExtraRingtonePickedUri);
+                string alarmTitle = RingtoneManager.GetRingtone(this, uriToRingTone).GetTitle(this);
+                if (uriToRingTone != null)
+                {
+                    // RingtoneManager.SetActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
+                    alarmSound.Text = alarmTitle;
+                    Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
+                }
+            }
+        }
+
         private void alarmReminderSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -156,6 +192,14 @@ namespace CustomListView
             //turn on
             alarmToEdit.AlarmActive = true;
 
+            string alarmSound = "";
+            if (uriToRingTone != null)
+            {
+                alarmToEdit.AlarmSound = uriToRingTone.ToString();
+                alarmSound = uriToRingTone.ToString();
+            }
+
+
             List<int> days = new List<int>();
             //get days for alarm
             if (FindViewById<ToggleButton>(Resource.Id.cBoxSun).Checked) days.Add(1);
@@ -177,8 +221,9 @@ namespace CustomListView
                 Service1 client = new Service1();
 
                 int[] daysSelected = days.ToArray();
+                
 
-                client.UpdateAlarmAsync(alarmToEdit.AlarmID, alarmToEdit.AlarmName, alarmToEdit.AlarmTime.ToString(), "y", alarmToEdit.AlarmReminder, daysSelected);
+                client.UpdateAlarmAsync(alarmToEdit.AlarmID, alarmToEdit.AlarmName, alarmToEdit.AlarmTime.ToString(), "y", alarmToEdit.AlarmReminder, alarmSound, daysSelected);
 
                 client.UpdateAlarmCompleted += (object sender1, UpdateAlarmCompletedEventArgs e1) =>
                 {
