@@ -35,7 +35,7 @@ namespace CustomListView
             string alarmTime = Intent.GetStringExtra("AlarmTime");
             string alarmSound = Intent.GetStringExtra("AlarmSound");
 
-            if (alarmSound != null)
+            if (alarmSound != null && alarmSound != "")
             {
                 ringTonePath = Android.Net.Uri.Parse(alarmSound);
             } else

@@ -137,7 +137,7 @@ namespace CustomListView
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == 3)
+            if (requestCode == 3 && resultCode == Result.Ok)
             {
                 uriToRingTone = (Android.Net.Uri)data.GetParcelableExtra(RingtoneManager.ExtraRingtonePickedUri);
                 string alarmTitle = RingtoneManager.GetRingtone(this, uriToRingTone).GetTitle(this);
@@ -162,7 +162,7 @@ namespace CustomListView
         private void AlarmTime_Click(object sender, EventArgs e)
         {
             hideSoftKeyboard();
-            TimePickerDialog tpd = new TimePickerDialog(this, tdpCallback, DateTime.Now.Hour, DateTime.Now.Minute, false);
+            TimePickerDialog tpd = new TimePickerDialog(this, tdpCallback, DateTime.Now.Hour, DateTime.Now.Minute, true);
             tpd.Show();
         }
 
@@ -215,6 +215,7 @@ namespace CustomListView
             {
                 days.Add(0);
             }
+
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {

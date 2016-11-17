@@ -59,10 +59,14 @@ namespace CustomListView
 
         private void NextAlarm_Click(object sender, EventArgs e)
         {
+            Alarm nextDueAlarm = getNextAlarm();
+            
+
             Intent intent = new Intent(this, typeof(NextAlarm));
-            if (getNextAlarm() != null)
+            if (nextDueAlarm != null)
             {
-                intent.PutExtra("Alarm", JsonConvert.SerializeObject(getNextAlarm()));
+                intent.PutExtra("Alarm", JsonConvert.SerializeObject(nextDueAlarm));
+                intent.PutExtra("DaysFromNow", getNumDaysToAlarm(nextDueAlarm));
             }
             else
             {
@@ -97,10 +101,16 @@ namespace CustomListView
 
                     long alarmMillis = theAlarmTime.TimeInMillis + (86400000L * daysFromNow);
                     //if the alarm time is before now then add a day
-                    if (theAlarmTime.Before(now) && daysFromNow == 0)
+                    if (theAlarmTime.Before(now) && daysFromNow == 0 && alarm.AlarmDays[0] == 0)
                     {
                         alarmMillis += 86400000L;
                     }
+                    //if alarm days have been set and the alarm time is before now and the days are 0 then it must be a week from now
+                    //else if (theAlarmTime.Before(now) && daysFromNow == 0 && alarm.AlarmDays.Count > 0)
+                    //{
+                    //    alarmMillis += 7 * 86400000L;
+                    //}
+
 
                     long timeToCheck = alarmMillis - now.TimeInMillis;
 
@@ -125,12 +135,31 @@ namespace CustomListView
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            //Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
-            //    ToastLength.Short).Show();
-            //show the AddALarm activity
-            Intent i = new Intent(this, typeof(AddAlarm));
-            i.PutExtra("Username", username);
-            StartActivityForResult(i, 1);
+           
+            switch(item.TitleFormatted.ToString())
+            {
+                case "Add":            
+                //show the AddALarm activity
+                Intent i = new Intent(this, typeof(AddAlarm));
+                i.PutExtra("Username", username);
+                StartActivityForResult(i, 1);
+                    break;
+
+                case "Help":
+                    var uri = Android.Net.Uri.Parse("http://student.mydesign.central.wa.edu.au/041110777/bedtime/");
+                    var intent = new Intent(Intent.ActionView, uri);
+                    StartActivity(intent);
+                    break;
+                case "Logout":
+                    foreach (Alarm alarm in alarms)
+                    {
+                        turnAlarmOff(alarm.AlarmID);
+                    }
+                    Intent logout = new Intent(this, typeof(Login));
+                    StartActivity(logout);
+                    Finish();
+                    break;
+            }
             return base.OnOptionsItemSelected(item);
         }
 
@@ -281,28 +310,49 @@ namespace CustomListView
         private int getNumDaysToAlarm(Alarm alarm)
         {
             //0 indicates the alarm is set for today or not repeating
-            int diff = 0;
+            int daysToGo = 8;
 
-            if (alarm.AlarmDays.Count > 0 && alarm.AlarmDays[0] != 0)
+            if (alarm.AlarmDays[0] != 0)
             {
                 //get today's day
                 Calendar now = Calendar.GetInstance(Java.Util.TimeZone.Default);
                 int today = now.Get(CalendarField.DayOfWeek);
 
-                //get alarm day difference until today
-                diff = (7 + (alarm.AlarmDays[0] - today)) % 7;
+                Calendar alarmT = Calendar.GetInstance(Java.Util.TimeZone.Default);
+                alarmT.Set(CalendarField.HourOfDay, alarm.AlarmTime.Hours);
+                alarmT.Set(CalendarField.Minute, alarm.AlarmTime.Minutes);
+                alarmT.Set(CalendarField.Second, 0);
 
-                for (int i = 1; i < alarm.AlarmDays.Count; i++)
+                if (alarm.AlarmDays.Contains(today))
                 {
-                    int temp = (7 + (alarm.AlarmDays[i] - today)) % 7;
-                    if (temp < diff)
+                    if (alarmT.Before(now))
                     {
-                        diff = temp;
+                        daysToGo = 7;
+                    } else
+                    {
+                        daysToGo = 0;
                     }
-                }             
+                }
 
+                for (int i = 0; i < alarm.AlarmDays.Count; i++)
+                {
+                    if (alarm.AlarmDays[i] != today)
+                    {
+                        int temp = (7 + (alarm.AlarmDays[i] - today)) % 7;
+
+                        if (temp < daysToGo)
+                        {
+                            daysToGo = temp;
+                        }
+                    }
+                }                    
+                        
+
+            } else
+            {
+                daysToGo = 0;
             }
-            return diff;
+            return daysToGo;
         }
 
         public void turnAlarmOn(int alarmID)
@@ -342,7 +392,7 @@ namespace CustomListView
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                au.edu.wa.central.mydesign.student.Service1 client = new au.edu.wa.central.mydesign.student.Service1();
+                Service1 client = new au.edu.wa.central.mydesign.student.Service1();
                 client.ToggleAlarmAsync(alarmID, "n");
 
                 client.ToggleAlarmCompleted += (object sender, ToggleAlarmCompletedEventArgs e) =>
@@ -405,11 +455,16 @@ namespace CustomListView
             alarm.Set(CalendarField.Minute, alarmTime.Minutes);
             alarm.Set(CalendarField.Second, 0);
             long alarmMillis = alarm.TimeInMillis + (86400000L * daysFromNow); 
-            //if the alarm time is before now then add a day
-            if (alarm.Before(now) && daysFromNow == 0)
+            //if the alarm time is before now and no alarm days are set then add a day
+            if (alarm.Before(now) && daysFromNow == 0 && alarmToSet.AlarmDays[0] == 0)
             {
                 alarmMillis += 86400000L;
-            } 
+            }
+            //if alarm days have been set and the alarm time is before now and the days are 0 then it must be a week from now
+            //else if (alarm.Before(now) && daysFromNow == 0 && alarmToSet.AlarmDays.Count > 0)
+            //{
+            //    alarmMillis += 7 * 86400000L;
+            //}
 
             // mgr.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
             //mgr.Set(AlarmType.RtcWakeup, Calendar.GetInstance(Java.Util.TimeZone.Default).TimeInMillis + (code + 1) * 10 * 1000, pendingIntent);

@@ -94,7 +94,7 @@ namespace CustomListView
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == 3)
+            if (requestCode == 3 && resultCode == Result.Ok)
             {
                 uriToRingTone = (Android.Net.Uri)data.GetParcelableExtra(RingtoneManager.ExtraRingtonePickedUri);
                 string alarmTitle = RingtoneManager.GetRingtone(this, uriToRingTone).GetTitle(this);
@@ -123,7 +123,7 @@ namespace CustomListView
         private void AlarmTime_Click(object sender, EventArgs e)
         {
             hideSoftKeyboard();
-            TimePickerDialog tpd = new TimePickerDialog(this, tdpCallback, DateTime.Now.Hour, DateTime.Now.Minute, false);
+            TimePickerDialog tpd = new TimePickerDialog(this, tdpCallback, DateTime.Now.Hour, DateTime.Now.Minute, true);            
             tpd.Show();
         }
 
@@ -140,6 +140,23 @@ namespace CustomListView
         {
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
             imm.HideSoftInputFromWindow(alarmName.WindowToken, 0);
+        }
+
+        private void showMsg(string msg)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            AlertDialog alert = builder.Create();
+            builder.SetTitle("Error:");
+            builder.SetMessage(msg);
+            builder.SetNeutralButton("OK", (senderAlert, args) =>
+            {
+                //do nothing
+                alert.Dismiss();
+            });
+
+            Dialog dialog = builder.Create();
+            dialog.Show();
         }
 
         public override void OnBackPressed()
@@ -164,44 +181,52 @@ namespace CustomListView
                 days.Add(0);
             }
 
-            if (NetworkInterface.GetIsNetworkAvailable())
+            if (alarmTime.Text == "")
             {
-                Service1 client = new Service1();
+                showMsg("You must set an alarm time!");
+            }
+            else
+            {
 
-                int[] daysSelected = days.ToArray();
-
-                string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
-
-                string alarmSound = null;
-                if (uriToRingTone != null)
+                if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    alarmSound = uriToRingTone.ToString();
-                }
+                    Service1 client = new Service1();
 
-                client.AddNewAlarmAsync(username, alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), alarmSound, daysSelected);
+                    int[] daysSelected = days.ToArray();
 
-                client.AddNewAlarmCompleted += (object sender1, AddNewAlarmCompletedEventArgs e1) =>
-                {
+                    string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
+
+                    string alarmSound = null;
+                    if (uriToRingTone != null)
+                    {
+                        alarmSound = uriToRingTone.ToString();
+                    }
+
+                    client.AddNewAlarmAsync(username, alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), alarmSound, daysSelected);
+
+                    client.AddNewAlarmCompleted += (object sender1, AddNewAlarmCompletedEventArgs e1) =>
+                    {
                     //make a new alarm object           
                     Alarm alarm = new Alarm
-                    {
-                        AlarmID = e1.Result,
-                        AlarmName = alarmName.Text,
-                        AlarmTime = timeOfAlarm,
-                        AlarmActive = true,
-                        AlarmReminder = int.Parse(alarmReminderSpinner.SelectedItem.ToString().Substring(0, reminderTime.Length - 4)),
-                        AlarmDays = days,
-                        AlarmSound = alarmSound
-                    };
+                        {
+                            AlarmID = e1.Result,
+                            AlarmName = alarmName.Text,
+                            AlarmTime = timeOfAlarm,
+                            AlarmActive = true,
+                            AlarmReminder = int.Parse(alarmReminderSpinner.SelectedItem.ToString().Substring(0, reminderTime.Length - 4)),
+                            AlarmDays = days,
+                            AlarmSound = alarmSound
+                        };
 
                     //pass the intent the alarm object via JSON
 
                     Intent intent = new Intent();
-                    intent.PutExtra("NewAlarm", JsonConvert.SerializeObject(alarm));
-                    SetResult(Result.Ok, intent);
-                    Finish();
-                };
+                        intent.PutExtra("NewAlarm", JsonConvert.SerializeObject(alarm));
+                        SetResult(Result.Ok, intent);
+                        Finish();
+                    };
 
+                }
             }
 
             
