@@ -1,21 +1,18 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Net.NetworkInformation;
-using CustomListView.au.edu.wa.central.mydesign.student;
+using Bedtime.au.edu.wa.central.mydesign.student;
 using Android.Views.InputMethods;
 using Android.Media;
 using Android.Content.PM;
 
-namespace CustomListView
+namespace Bedtime
 {
     [Activity(Label = "EditAlarm", ScreenOrientation = ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
     public class EditAlarm : Activity

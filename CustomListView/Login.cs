@@ -1,21 +1,17 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using System.Net.NetworkInformation;
-using CustomListView.au.edu.wa.central.mydesign.student;
+using Bedtime.au.edu.wa.central.mydesign.student;
 using Android.Content.PM;
 using Android.Views.InputMethods;
 using Android.Graphics;
 
-namespace CustomListView
+namespace Bedtime
 {
     [Activity(Label = "Bedtime Alarm", MainLauncher = true, Icon = "@drawable/ic_launcher", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Login : Activity

@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("CustomListView.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Bedtime.Resource", IsApplication=true)]
 
-namespace CustomListView
+namespace Bedtime
 {
 	
 	

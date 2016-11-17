@@ -1,7 +1,6 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
@@ -10,10 +9,10 @@ using Java.Util;
 using Newtonsoft.Json;
 using Android.Content.PM;
 using System.Net.NetworkInformation;
-using CustomListView.au.edu.wa.central.mydesign.student;
+using Bedtime.au.edu.wa.central.mydesign.student;
 using System.Data;
 
-namespace CustomListView
+namespace Bedtime
 {
     [Activity(Label = "Bedtime Alarm", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
