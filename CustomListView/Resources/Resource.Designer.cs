@@ -203,155 +203,137 @@ namespace CustomListView
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f09002b
-			public const int List = 2131296299;
-			
-			// aapt resource value: 0x7f090017
-			public const int alaramTime = 2131296279;
-			
-			// aapt resource value: 0x7f090022
-			public const int alarmActive = 2131296290;
-			
-			// aapt resource value: 0x7f090016
-			public const int alarmName = 2131296278;
-			
-			// aapt resource value: 0x7f09002f
-			public const int alarm_add = 2131296303;
-			
-			// aapt resource value: 0x7f09002a
-			public const int btnAlarmList = 2131296298;
-			
-			// aapt resource value: 0x7f090019
-			public const int btnAlarmOff = 2131296281;
-			
-			// aapt resource value: 0x7f09000c
-			public const int btnCancelAddAlarm = 2131296268;
-			
-			// aapt resource value: 0x7f090023
-			public const int btnCancelEditAlarm = 2131296291;
+			// aapt resource value: 0x7f090025
+			public const int List = 2131296293;
 			
 			// aapt resource value: 0x7f09001e
-			public const int btnCreateUser = 2131296286;
-			
-			// aapt resource value: 0x7f090026
-			public const int btnLogin = 2131296294;
+			public const int alarmActive = 2131296286;
 			
 			// aapt resource value: 0x7f090029
-			public const int btnNextAlarm = 2131296297;
-			
-			// aapt resource value: 0x7f09000b
-			public const int btnSaveAlarm = 2131296267;
-			
-			// aapt resource value: 0x7f090018
-			public const int button1 = 2131296280;
-			
-			// aapt resource value: 0x7f090008
-			public const int cBoxFri = 2131296264;
-			
-			// aapt resource value: 0x7f090004
-			public const int cBoxMon = 2131296260;
-			
-			// aapt resource value: 0x7f090009
-			public const int cBoxSat = 2131296265;
-			
-			// aapt resource value: 0x7f09000a
-			public const int cBoxSun = 2131296266;
-			
-			// aapt resource value: 0x7f090007
-			public const int cBoxThu = 2131296263;
-			
-			// aapt resource value: 0x7f090005
-			public const int cBoxTue = 2131296261;
-			
-			// aapt resource value: 0x7f090006
-			public const int cBoxWed = 2131296262;
-			
-			// aapt resource value: 0x7f090025
-			public const int editPassword = 2131296293;
-			
-			// aapt resource value: 0x7f090027
-			public const int editText1 = 2131296295;
-			
-			// aapt resource value: 0x7f090028
-			public const int editText2 = 2131296296;
+			public const int alarm_add = 2131296297;
 			
 			// aapt resource value: 0x7f090024
-			public const int editUsername = 2131296292;
-			
-			// aapt resource value: 0x7f090010
-			public const int edit_toolbar = 2131296272;
-			
-			// aapt resource value: 0x7f09000f
-			public const int footer = 2131296271;
-			
-			// aapt resource value: 0x7f09000d
-			public const int header = 2131296269;
-			
-			// aapt resource value: 0x7f090030
-			public const int help = 2131296304;
-			
-			// aapt resource value: 0x7f090013
-			public const int imageView1 = 2131296275;
-			
-			// aapt resource value: 0x7f09002c
-			public const int imgAlarmIcon = 2131296300;
-			
-			// aapt resource value: 0x7f090012
-			public const int linearLayout1 = 2131296274;
-			
-			// aapt resource value: 0x7f090031
-			public const int logout = 2131296305;
-			
-			// aapt resource value: 0x7f090015
-			public const int relativeLayout1 = 2131296277;
-			
-			// aapt resource value: 0x7f090002
-			public const int reminderList = 2131296258;
-			
-			// aapt resource value: 0x7f090011
-			public const int scrollView1 = 2131296273;
-			
-			// aapt resource value: 0x7f09000e
-			public const int toolbar = 2131296270;
-			
-			// aapt resource value: 0x7f090021
-			public const int txtAlarmDays = 2131296289;
-			
-			// aapt resource value: 0x7f090000
-			public const int txtAlarmName = 2131296256;
+			public const int btnAlarmList = 2131296292;
 			
 			// aapt resource value: 0x7f090014
-			public const int txtAlarmSound = 2131296276;
+			public const int btnAlarmOff = 2131296276;
 			
-			// aapt resource value: 0x7f090003
-			public const int txtAlarmTime = 2131296259;
-			
-			// aapt resource value: 0x7f09001d
-			public const int txtConfirmPassword = 2131296285;
+			// aapt resource value: 0x7f090005
+			public const int btnCancelAddAlarm = 2131296261;
 			
 			// aapt resource value: 0x7f09001f
-			public const int txtCreateLink = 2131296287;
+			public const int btnCancelEditAlarm = 2131296287;
 			
-			// aapt resource value: 0x7f09001a
-			public const int txtCreateTitle = 2131296282;
+			// aapt resource value: 0x7f090019
+			public const int btnCreateUser = 2131296281;
+			
+			// aapt resource value: 0x7f090022
+			public const int btnLogin = 2131296290;
+			
+			// aapt resource value: 0x7f090023
+			public const int btnNextAlarm = 2131296291;
+			
+			// aapt resource value: 0x7f090004
+			public const int btnSaveAlarm = 2131296260;
+			
+			// aapt resource value: 0x7f09000f
+			public const int cBoxFri = 2131296271;
+			
+			// aapt resource value: 0x7f09000b
+			public const int cBoxMon = 2131296267;
+			
+			// aapt resource value: 0x7f090010
+			public const int cBoxSat = 2131296272;
+			
+			// aapt resource value: 0x7f090011
+			public const int cBoxSun = 2131296273;
+			
+			// aapt resource value: 0x7f09000e
+			public const int cBoxThu = 2131296270;
+			
+			// aapt resource value: 0x7f09000c
+			public const int cBoxTue = 2131296268;
+			
+			// aapt resource value: 0x7f09000d
+			public const int cBoxWed = 2131296269;
+			
+			// aapt resource value: 0x7f090021
+			public const int editPassword = 2131296289;
 			
 			// aapt resource value: 0x7f090020
-			public const int txtHelpLink = 2131296288;
+			public const int editUsername = 2131296288;
 			
-			// aapt resource value: 0x7f09001c
-			public const int txtPassword = 2131296284;
+			// aapt resource value: 0x7f090003
+			public const int edit_toolbar = 2131296259;
 			
-			// aapt resource value: 0x7f09002e
-			public const int txtRemaining = 2131296302;
+			// aapt resource value: 0x7f090002
+			public const int footer = 2131296258;
 			
-			// aapt resource value: 0x7f09002d
-			public const int txtRemainingTime = 2131296301;
+			// aapt resource value: 0x7f090000
+			public const int header = 2131296256;
+			
+			// aapt resource value: 0x7f09002a
+			public const int help = 2131296298;
+			
+			// aapt resource value: 0x7f09000a
+			public const int imageView1 = 2131296266;
+			
+			// aapt resource value: 0x7f090026
+			public const int imgAlarmIcon = 2131296294;
+			
+			// aapt resource value: 0x7f090009
+			public const int linearLayout1 = 2131296265;
+			
+			// aapt resource value: 0x7f09002b
+			public const int logout = 2131296299;
+			
+			// aapt resource value: 0x7f09001a
+			public const int relativeLayout1 = 2131296282;
+			
+			// aapt resource value: 0x7f090012
+			public const int reminderList = 2131296274;
+			
+			// aapt resource value: 0x7f090006
+			public const int scrollView1 = 2131296262;
 			
 			// aapt resource value: 0x7f090001
-			public const int txtReminder = 2131296257;
+			public const int toolbar = 2131296257;
+			
+			// aapt resource value: 0x7f09001d
+			public const int txtAlarmDays = 2131296285;
+			
+			// aapt resource value: 0x7f090007
+			public const int txtAlarmName = 2131296263;
+			
+			// aapt resource value: 0x7f090013
+			public const int txtAlarmSound = 2131296275;
+			
+			// aapt resource value: 0x7f090008
+			public const int txtAlarmTime = 2131296264;
+			
+			// aapt resource value: 0x7f090018
+			public const int txtConfirmPassword = 2131296280;
 			
 			// aapt resource value: 0x7f09001b
-			public const int txtUsername = 2131296283;
+			public const int txtCreateLink = 2131296283;
+			
+			// aapt resource value: 0x7f090015
+			public const int txtCreateTitle = 2131296277;
+			
+			// aapt resource value: 0x7f09001c
+			public const int txtHelpLink = 2131296284;
+			
+			// aapt resource value: 0x7f090017
+			public const int txtPassword = 2131296279;
+			
+			// aapt resource value: 0x7f090028
+			public const int txtRemaining = 2131296296;
+			
+			// aapt resource value: 0x7f090027
+			public const int txtRemainingTime = 2131296295;
+			
+			// aapt resource value: 0x7f090016
+			public const int txtUsername = 2131296278;
 			
 			static Id()
 			{
@@ -367,46 +349,34 @@ namespace CustomListView
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int AddAlarm = 2130903040;
+			public const int AddAlarm2 = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int AddAlarm2 = 2130903041;
+			public const int alarm = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int AddAlarmFrag = 2130903042;
+			public const int CreateUser = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int alarm = 2130903043;
+			public const int custom = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int CreateUser = 2130903044;
+			public const int EditAlarm2 = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int custom = 2130903045;
+			public const int Login = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int EditAlarm = 2130903046;
+			public const int Main = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int EditAlarm2 = 2130903047;
+			public const int NextAlarm = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int Login = 2130903048;
+			public const int reminder = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int Login2 = 2130903049;
-			
-			// aapt resource value: 0x7f03000a
-			public const int Main = 2130903050;
-			
-			// aapt resource value: 0x7f03000b
-			public const int NextAlarm = 2130903051;
-			
-			// aapt resource value: 0x7f03000c
-			public const int reminder = 2130903052;
-			
-			// aapt resource value: 0x7f03000d
-			public const int toolbar = 2130903053;
+			public const int toolbar = 2130903049;
 			
 			static Layout()
 			{
