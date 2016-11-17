@@ -149,43 +149,46 @@ namespace CustomListView
 			public const int ic_label_outline_white_24dp = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int ic_lock_white_18dp = 2130837524;
+			public const int ic_launcher = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int ic_notifications_none_white_24dp = 2130837525;
+			public const int ic_lock_white_18dp = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int ic_save_green = 2130837526;
+			public const int ic_notifications_none_white_24dp = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int ic_schedule_green_48dp = 2130837527;
+			public const int ic_save_green = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int ic_schedule_white_48dp = 2130837528;
+			public const int ic_schedule_green_48dp = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int Icon = 2130837529;
+			public const int ic_schedule_white_48dp = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int italy = 2130837530;
+			public const int Icon = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int round_toggle = 2130837531;
+			public const int italy = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int rounded_box = 2130837532;
+			public const int round_toggle = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int rounded_edit_text = 2130837533;
+			public const int rounded_box = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int save_blue = 2130837534;
+			public const int rounded_edit_text = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int spinner_item_style = 2130837535;
+			public const int save_blue = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int spinner_style = 2130837536;
+			public const int spinner_item_style = 2130837536;
+			
+			// aapt resource value: 0x7f020021
+			public const int spinner_style = 2130837537;
 			
 			static Drawable()
 			{

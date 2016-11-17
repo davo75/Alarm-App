@@ -15,7 +15,7 @@ using System.Data;
 
 namespace CustomListView
 {
-    [Activity(Label = "CustomListView", ScreenOrientation = ScreenOrientation.Portrait, Icon = "@drawable/icon")]
+    [Activity(Label = "Bedtime Alarm", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
 
@@ -236,25 +236,6 @@ namespace CustomListView
 
         
 
-        //private void BtnAdd_Click(object sender, EventArgs e)
-        //{
-        //    //show the AddALarm activity
-        //    Intent i = new Intent(this, typeof(AddAlarm));
-        //    StartActivityForResult(i, 1);
-
-        //    //pull up dialog
-        //    //FragmentTransaction transaction = FragmentManager.BeginTransaction();
-        //    //AddAlarmFrag addAlarmDialog = new AddAlarmFrag();
-        //    //addAlarmDialog.Show(transaction, "Add Alarm Dialog");
-
-        //    //Alarm alarm = new Alarm {
-        //    //        AlarmName = "New Alarm",
-        //    //        AlarmTime = new TimeSpan(9,0,0),
-        //    //    };
-        //    //data.Add(alarm);
-        //    //psa.NotifyDataSetChanged();
-        //    //addAlarm(data.Count - 1);
-        //}
 
 
         //deal with the add alarm result (code 1) and edit alarm result (code 2)

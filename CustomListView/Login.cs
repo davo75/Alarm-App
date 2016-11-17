@@ -17,7 +17,7 @@ using Android.Graphics;
 
 namespace CustomListView
 {
-    [Activity(Label = "Login", MainLauncher = true, WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Bedtime Alarm", MainLauncher = true, Icon = "@drawable/ic_launcher", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Login : Activity
     {
         EditText theUsername;

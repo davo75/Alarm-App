@@ -86,14 +86,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:paddingBottom="10dp" />
             <TextView
                 android:text="Need Help?"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtHelpLink"
                 android:layout_alignParentRight="true"
-                android:textColor="#fff" />
+                android:textColor="#fff"
+                android:paddingBottom="10dp" />
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

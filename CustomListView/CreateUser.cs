@@ -17,7 +17,7 @@ using Android.Views.InputMethods;
 
 namespace CustomListView
 {
-    [Activity(Label = "CreateUser", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Create User", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
     public class CreateUser : Activity
     {
         EditText username;
