@@ -719,7 +719,7 @@ namespace Bedtime
         /// </summary>
         public override void OnBackPressed()
         {
-            Toast.MakeText(this, "Back Button Pressed..", ToastLength.Short).Show();
+            //Toast.MakeText(this, "Back Button Pressed..", ToastLength.Short).Show();
             MoveTaskToBack(true);
         }
 
