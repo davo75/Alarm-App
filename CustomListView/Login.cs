@@ -65,6 +65,10 @@ namespace Bedtime
                 client.CheckPasswordAsync(theUsername.Text, thePassword.Text);
 
                 client.CheckPasswordCompleted += Client_CheckPasswordCompleted;
+            } else
+            {
+                // display toast error message
+                Toast.MakeText(this, "No internet connection", ToastLength.Long).Show();
             }
 
         }

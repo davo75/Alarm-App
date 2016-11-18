@@ -14,16 +14,32 @@ using System.Data;
 
 namespace Bedtime
 {
+    /// <summary>
+    /// Main UI for managing alarms. It displays a list of alarms that can be edited and turned on or off. New alarms can be added
+    /// from here too.
+    /// </summary>
+    /// <remarks>
+    /// author: David Pyle 041110777
+    /// version: 1.0
+    /// date: 18/11/2016
+    /// </remarks
     [Activity(Label = "Bedtime Alarm", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
+        /// <summary>
+        /// List of alarms for the user
+        /// </summary>
+        private List<Alarm> alarms;
+        /// <summary>
+        /// List view UI control for displaying alarms
+        /// </summary>
+        private ListView listView;
+        /// <summary>
+        /// Adapater for list view
+        /// </summary>
+        private PeopleScreenAdapter psa;
 
-
-    List<Alarm> alarms;
-        ListView listView;
-        PeopleScreenAdapter psa;
-
-        AlarmManager mgr;
+        private AlarmManager mgr;
 
         private string username;
 

@@ -50,15 +50,15 @@ namespace Bedtime
                 view = context.LayoutInflater.Inflate(Resource.Layout.custom, null);
             }
 
-            //string alarmLabel = item.AlarmName.ToString();
+            string alarmLabel = item.AlarmName.ToString();
 
-            //if(alarmLabel.Length > 15)
-            //{
-            //    alarmLabel = alarmLabel.Substring(0, 14);
-            //    alarmLabel += "...";
-            //}
+            if (alarmLabel.Length > 17)
+            {
+                alarmLabel = alarmLabel.Substring(0, 16);
+                alarmLabel += "...";
+            }
 
-            view.FindViewById<TextView>(Resource.Id.txtAlarmName).Text = item.AlarmName.ToString();
+            view.FindViewById<TextView>(Resource.Id.txtAlarmName).Text = alarmLabel;
             view.FindViewById<TextView>(Resource.Id.txtAlarmTime).Text = item.AlarmTime.ToString(@"hh\:mm");
 
             //format the alarm days from integers to days of the week

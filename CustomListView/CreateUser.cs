@@ -81,6 +81,11 @@ namespace Bedtime
 
                     client.CreateUserCompleted += Client_CreateUserCompleted;
                 }
+                else
+                {
+                    // display toast error message
+                    Toast.MakeText(this, "No internet connection", ToastLength.Long).Show();
+                }
             }
         }
 
@@ -89,13 +94,18 @@ namespace Bedtime
             if (e.Result == 1)
             {
                 //display toast welcome message
-                Toast.MakeText(this, "Account created!", ToastLength.Long).Show();
+                Toast.MakeText(this, "Account created!", ToastLength.Short).Show();
 
                 //if ok show the next screen
                 Intent main = new Intent(this, typeof(MainActivity));
                 main.PutExtra("Username", username.Text);
                 StartActivity(main);
                 Finish();
+            }
+            else if (e.Result == -1)
+            {
+                //display toast error message
+                Toast.MakeText(this, "Username already taken. Please try again..", ToastLength.Long).Show();
             }
             else
             {

@@ -50,12 +50,8 @@ namespace Bedtime
                 name.Text = alarmToShow.AlarmName;               
                 time.Text = (alarmToShow.AlarmTime).ToString(@"hh\:mm");
 
-                alarmTimer = new System.Timers.Timer();
-                //Trigger event every second
-                alarmTimer.Interval = 1000;
-                alarmTimer.Elapsed += OnTimedEvent;
+                setUpTimer();
                 
-                alarmTimer.Enabled = true;
 
             } else
             {
@@ -69,6 +65,16 @@ namespace Bedtime
             //button for navigating to  alarm list screen
             ImageButton alarmList = FindViewById<ImageButton>(Resource.Id.btnAlarmList);
             alarmList.Click += AlarmList_Click;
+        }
+
+        private void setUpTimer()
+        {
+            alarmTimer = new System.Timers.Timer();
+            //Trigger event every second
+            alarmTimer.Interval = 1000;
+            alarmTimer.Elapsed += OnTimedEvent;
+
+            alarmTimer.Enabled = true;
         }
 
         private void getTimeRemaning()
@@ -119,7 +125,15 @@ namespace Bedtime
             StartActivity(intent);
         }
 
-      
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Toast.MakeText(this, "Next Alrm Resuming..", ToastLength.Short).Show();
+            if (alarmTimer != null)
+            {
+                alarmTimer.Start();
+            }
+        }
 
         protected override void OnPause()
         {
