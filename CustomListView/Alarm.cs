@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Bedtime
 {
     /// <summary>
-    /// ALarm class for holding details of alarms
+    /// Alarm class for holding details of alarms
     /// </summary>
     /// <remarks>
     /// author: David Pyle 041110777

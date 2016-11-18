@@ -64,7 +64,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Alarm.cs" />
     <Compile Include="NextAlarm.cs" />
-    <Compile Include="PersonScreenAdapter.cs" />
+    <Compile Include="AlarmScreenAdapter.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web References\au.edu.wa.central.mydesign.student\Reference.cs">

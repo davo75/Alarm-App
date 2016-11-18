@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -16,24 +15,55 @@ using Android.Content.PM;
 
 namespace Bedtime
 {
+    /// <summary>
+    /// Adds a new alarm
+    /// </summary>
+    /// <remarks>
+    /// author: David Pyle 041110777
+    /// version: 1.0
+    /// date: 18/11/2016
+    /// </remarks
+    
     [Activity(Label = "AddAlarm", ScreenOrientation = ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden)]
     public class AddAlarm : Activity
     {
-        EditText alarmName;
-        EditText alarmTime;
-       // EditText alarmReminder;
-        TimeSpan timeOfAlarm;
-        EditText alarmSound;
-        Spinner alarmReminderSpinner;
-        Android.Net.Uri uriToRingTone;
+        /// <summary>
+        /// Alarm name
+        /// </summary>
+        private EditText alarmName;
+        /// <summary>
+        /// Alarm time
+        /// </summary>
+        private EditText alarmTime;
+        /// <summary>
+        /// Alarm time
+        /// </summary>
+        private TimeSpan timeOfAlarm;
+        /// <summary>
+        /// Alarm sound
+        /// </summary>
+        private EditText alarmSound;
+        /// <summary>
+        /// Drop down list for reminder times
+        /// </summary>
+        private Spinner alarmReminderSpinner;
+        /// <summary>
+        /// Path to ringtone
+        /// </summary>
+        private Android.Net.Uri uriToRingTone;
+        /// <summary>
+        /// Logged in username
+        /// </summary>
         private string username;
 
+        /// <summary>
+        /// Displays the alarm field for the user to fill in to create a new alarm
+        /// </summary>
+        /// <param name="savedInstanceState"></param>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            //this.RequestWindowFeature(WindowFeatures.NoTitle);
-            //this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.AddAlarm2);
 
@@ -42,8 +72,10 @@ namespace Bedtime
             SetActionBar(toolbar);
             ActionBar.Title = "Add Alarm";
 
+            //set the username
             username = Intent.GetStringExtra("Username");
 
+            //get references to the text fields
             alarmName = FindViewById<EditText>(Resource.Id.txtAlarmName);
             alarmTime = FindViewById<EditText>(Resource.Id.txtAlarmTime);
             //alarmReminder = FindViewById<EditText>(Resource.Id.txtAlarmReminder);
@@ -52,10 +84,10 @@ namespace Bedtime
             //set a custom font for edit text fields
             Typeface font = Typeface.CreateFromAsset(Assets, "fonts/Myriad-Pro-Bold.ttf");            
             alarmName.Typeface = font;           
-            alarmTime.Typeface = font;            
-           // alarmReminder.Typeface = font;           
+            alarmTime.Typeface = font;                    
             alarmSound.Typeface = font;
 
+            //setup the reminder time drop down list
             alarmReminderSpinner = FindViewById<Spinner>(Resource.Id.reminderList);
             alarmReminderSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(alarmReminderSpinner_ItemSelected);
 
@@ -69,11 +101,11 @@ namespace Bedtime
 
             alarmSound.Click += AlarmSound_Click;
 
-            //alarmReminder.Click += AlarmReminder_Click;
-
+            //save button
             ImageButton saveBtn = FindViewById<ImageButton>(Resource.Id.btnSaveAlarm);
             saveBtn.Click += SaveBtn_Click;
 
+            //cancel button
             ImageButton cancelBtn = FindViewById<ImageButton>(Resource.Id.btnCancelAddAlarm);
             cancelBtn.Click += (object sender, EventArgs e) =>
             {
@@ -81,12 +113,23 @@ namespace Bedtime
             };
         }
 
+        /// <summary>
+        /// Displays the ringtone list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlarmSound_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(RingtoneManager.ActionRingtonePicker);
             this.StartActivityForResult(intent, 3);
         }
 
+        /// <summary>
+        /// Sets the ringtone path from the user selection
+        /// </summary>
+        /// <param name="requestCode"></param>
+        /// <param name="resultCode"></param>
+        /// <param name="data"></param>
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -96,27 +139,31 @@ namespace Bedtime
                 uriToRingTone = (Android.Net.Uri)data.GetParcelableExtra(RingtoneManager.ExtraRingtonePickedUri);
                 string alarmTitle = RingtoneManager.GetRingtone(this, uriToRingTone).GetTitle(this);
                 if (uriToRingTone != null)
-                {
-                    // RingtoneManager.SetActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
+                {                    
                     alarmSound.Text = alarmTitle;
-                    Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
+                    //Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
                 }
             }
         }
-        //private void AlarmReminder_Click(object sender, EventArgs e)
-        //{
-        //    alarmReminderSpinner.PerformClick();
-        //}
-
+        
+        /// <summary>
+        /// Displays the reminder time selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void alarmReminderSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
 
-            string toast = string.Format("The reminder is {0}", spinner.GetItemAtPosition(e.Position));
-            toast = spinner.SelectedItem.ToString();
-            Toast.MakeText(this, toast, ToastLength.Long).Show();
+            string toast = spinner.SelectedItem.ToString();
+            //Toast.MakeText(this, toast, ToastLength.Long).Show();
         }
 
+        /// <summary>
+        /// Displays the time picker dialog for choosing the alarm time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AlarmTime_Click(object sender, EventArgs e)
         {
             hideSoftKeyboard();
@@ -124,23 +171,34 @@ namespace Bedtime
             tpd.Show();
         }
 
+        /// <summary>
+        /// Sets the alarm time chosen in the time picker dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tdpCallback(object sender, TimePickerDialog.TimeSetEventArgs e)
-        {
-            //Toast.MakeText(this, string.Format("{0}:{1}", e.HourOfDay, e.Minute.ToString().PadLeft(2, '0')), ToastLength.Short).Show();
-            //alarmTime.Text = string.Format("{0}:{1}", e.HourOfDay, e.Minute.ToString().PadLeft(2, '0'));
+        {            
             timeOfAlarm = new TimeSpan(e.HourOfDay, e.Minute, 0);
             alarmTime.Text = string.Format("{0}:{1}", timeOfAlarm.Hours, timeOfAlarm.Minutes.ToString().PadLeft(2, '0'));
-            Toast.MakeText(this, timeOfAlarm.ToString(), ToastLength.Short).Show();
+            //Toast.MakeText(this, timeOfAlarm.ToString(), ToastLength.Short).Show();
         }
 
+        /// <summary>
+        /// Hides the onscreen keyboard
+        /// </summary>
         private void hideSoftKeyboard()
         {
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
             imm.HideSoftInputFromWindow(alarmName.WindowToken, 0);
         }
 
+        /// <summary>
+        /// Displays an message dialog 
+        /// </summary>
+        /// <param name="msg">The message to display</param>
         private void showMsg(string msg)
         {
+            //create the alert dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             AlertDialog alert = builder.Create();
@@ -151,16 +209,24 @@ namespace Bedtime
                 //do nothing
                 alert.Dismiss();
             });
-
+            //show the dialog
             Dialog dialog = builder.Create();
             dialog.Show();
         }
 
+        /// <summary>
+        /// Closes the activity when the back button pressed without saving the changes
+        /// </summary>
         public override void OnBackPressed()
         {
             Finish();
         }
 
+        /// <summary>
+        /// Saves the alarm details and adds the alarm to the database and alarm list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveBtn_Click(object sender, EventArgs e)
         {
             List<int> days = new List<int>();
@@ -178,27 +244,30 @@ namespace Bedtime
                 days.Add(0);
             }
 
+            //make sure the alarm time has been set
             if (alarmTime.Text == "")
             {
                 showMsg("You must set an alarm time!");
             }
             else
             {
-
+                //call the web service to add the new alarm
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
                     Service1 client = new Service1();
 
+                    //get the days
                     int[] daysSelected = days.ToArray();
-
+                    //get the reminder time
                     string reminderTime = alarmReminderSpinner.SelectedItem.ToString();
 
+                    //get the alarm sound
                     string alarmSound = null;
                     if (uriToRingTone != null)
                     {
                         alarmSound = uriToRingTone.ToString();
                     }
-
+                    //add the new alarm
                     client.AddNewAlarmAsync(username, alarmName.Text, timeOfAlarm.ToString(), "y", int.Parse(reminderTime.Substring(0, reminderTime.Length - 4)), alarmSound, daysSelected);
 
                     client.AddNewAlarmCompleted += (object sender1, AddNewAlarmCompletedEventArgs e1) =>
@@ -215,9 +284,8 @@ namespace Bedtime
                             AlarmSound = alarmSound
                         };
 
-                    //pass the intent the alarm object via JSON
-
-                    Intent intent = new Intent();
+                        //pass the intent the alarm object via JSON
+                        Intent intent = new Intent();
                         intent.PutExtra("NewAlarm", JsonConvert.SerializeObject(alarm));
                         SetResult(Result.Ok, intent);
                         Finish();

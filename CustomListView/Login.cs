@@ -13,12 +13,31 @@ using Android.Graphics;
 
 namespace Bedtime
 {
+    /// <summary>
+    /// Login screen for the app.
+    /// </summary>
+    /// <remarks>
+    /// author: David Pyle 041110777
+    /// version: 1.0
+    /// date: 18/11/2016
+    /// </remarks>
+    
     [Activity(Label = "Bedtime Alarm", MainLauncher = true, Icon = "@drawable/ic_launcher", WindowSoftInputMode = SoftInput.AdjustResize | SoftInput.StateHidden, ScreenOrientation = ScreenOrientation.Portrait)]
     public class Login : Activity
     {
-        EditText theUsername;
-        EditText thePassword;
+        /// <summary>
+        /// Username
+        /// </summary>
+        private EditText theUsername;
+        /// <summary>
+        /// Password
+        /// </summary>
+        private EditText thePassword;
 
+        /// <summary>
+        /// Gets the username and password and authenticates them against the database
+        /// </summary>
+        /// <param name="bundle"></param>
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -26,12 +45,15 @@ namespace Bedtime
             // Create your application here
             SetContentView(Resource.Layout.Login);
 
+            //set font
             Typeface font = Typeface.CreateFromAsset(Assets, "fonts/Montserrat-Bold.ttf");
 
+            //get login button
             Button login = FindViewById<Button>(Resource.Id.btnLogin);
             login.Typeface = font;
             login.Click += login_Click;
 
+            //link to create an account
             TextView create = FindViewById<TextView>(Resource.Id.txtCreateLink);
             create.Typeface = font;
             create.Click += delegate {
@@ -39,7 +61,8 @@ namespace Bedtime
                 StartActivity(intent);
             };
 
-                TextView help = FindViewById<TextView>(Resource.Id.txtHelpLink);
+            //link to online help
+            TextView help = FindViewById<TextView>(Resource.Id.txtHelpLink);
             help.Typeface = font;
             help.Click += delegate {
                 var uri = Android.Net.Uri.Parse("http://student.mydesign.central.wa.edu.au/041110777/bedtime/");
@@ -49,7 +72,11 @@ namespace Bedtime
         }
 
         
-
+        /// <summary>
+        /// Check the database for correct login details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void login_Click(object sender, EventArgs e)
         {
             
@@ -57,11 +84,13 @@ namespace Bedtime
             theUsername = FindViewById<EditText>(Resource.Id.editUsername);
             thePassword = FindViewById<EditText>(Resource.Id.editPassword);
 
+            //hide the keyboard
             hideSoftKeyboard();
 
+            //call the webservice
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                Service1 client = new au.edu.wa.central.mydesign.student.Service1();
+                Service1 client = new Service1();
                 client.CheckPasswordAsync(theUsername.Text, thePassword.Text);
 
                 client.CheckPasswordCompleted += Client_CheckPasswordCompleted;
@@ -73,8 +102,14 @@ namespace Bedtime
 
         }
 
+        /// <summary>
+        /// Checks the result from the database. If ok the main alarm screen is displayed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Client_CheckPasswordCompleted(object sender, CheckPasswordCompletedEventArgs e)
         {
+            //if user login ok
             if (e.Result == 1)
             {
                 //display toast welcome message
@@ -93,6 +128,9 @@ namespace Bedtime
             }
         }
 
+        /// <summary>
+        /// Hides the onscreen keyboard
+        /// </summary>
         private void hideSoftKeyboard()
         {
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
