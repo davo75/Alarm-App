@@ -136,6 +136,15 @@ namespace Bedtime
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
             imm.HideSoftInputFromWindow(thePassword.WindowToken, 0);
         }
+
+        /// <summary>
+        /// Overrides the back button to prevent the alarm list view from regenerating
+        /// </summary>
+        public override void OnBackPressed()
+        {
+            //Toast.MakeText(this, "Back Button Pressed..", ToastLength.Short).Show();
+            MoveTaskToBack(true);
+        }
     }
 }
 
