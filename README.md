@@ -4,9 +4,9 @@ Android Alarm app written in C# using Visual Studio/Xamarin. Project completed f
 
 Purpose of the app is to create and manage alarms. Features include:
 
-Supports multiple users
-Unlimited alarms
-Customise alarm sound
-Set a reminder alarm
-Repeat alarm on any day(s)
+* Supports multiple users
+* Unlimited alarms
+* Customise alarm sound
+* Set a reminder alarm
+* Repeat alarm on any day(s)
 
