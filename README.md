@@ -2,7 +2,7 @@
 
 Android Alarm app written in C# using Visual Studio/Xamarin. Project completed for a college assignment.
 
-Uses a SOAP XML based web service to store alarm and user data. 
+Uses a SOAP XML based web service to store alarm and user data in a MySQL database. 
 
 Purpose of the app is to create and manage alarms. Features include:
 
