@@ -196,7 +196,7 @@ namespace Bedtime
                 {
                     // RingtoneManager.SetActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
                     alarmSound.Text = alarmTitle;
-                    Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
+                    //Toast.MakeText(this, uriToRingTone.ToString(), ToastLength.Short).Show();
                 }
             }
         }
